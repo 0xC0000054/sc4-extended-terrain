@@ -6,7 +6,7 @@ This folder contains the following example files:
 
 This file is an edited version of SC4's default _terrain.ini_ entry that adds a Desert terrain mode in addition to the standard
 Tropical terrain mode.
-The desert terrain mode consists of a _DesertMiscTextures_ section that is the same as the _TropicalMiscTextures section, and a
+The desert terrain mode consists of a _DesertMiscTextures_ section that is the same as the _TropicalMiscTextures_ section, and a
 _DesertTextureMapTable_ with all values set to the Tropical Beach texture.
 
 ## EditedTerrainIni.dat
