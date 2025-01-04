@@ -10,7 +10,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#include "TerrainNames.h"
+#include "TerrainEntryReader.h"
 #include "DebugUtil.h"
 #include "Logger.h"
 #include "boost/property_tree/ptree.hpp"
@@ -91,7 +91,7 @@ namespace
 	}
 }
 
-void TerrainNames::Load(std::vector<TerrainNameEntry>& entries)
+void TerrainEntryReader::Load(std::vector<TerrainEntry>& entries)
 {
 	Logger& logger = Logger::GetInstance();
 

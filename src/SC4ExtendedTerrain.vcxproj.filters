@@ -102,9 +102,6 @@
     <ClCompile Include="DebugUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TerrainNames.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GZFileStreamBufAdapter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -117,13 +114,19 @@
     <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseWinProc.cpp">
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
-    <ClCompile Include="TerrainNameEntry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RegionTerrainData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GZStringConvert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Patcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainEntry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainEntryReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -176,9 +179,6 @@
     <ClInclude Include="DebugUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TerrainNames.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GZFileStreamBufAdapter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -206,13 +206,16 @@
     <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinCombo.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="TerrainNameEntry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RegionTerrainData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GZStringConvert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainEntry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainEntryReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

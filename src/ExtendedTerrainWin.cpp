@@ -120,7 +120,7 @@ ExtendedTerrainWin::ExtendedTerrainWin(IExtendedTerrainWinManager& pWinMgr)
 
 bool ExtendedTerrainWin::Create(
 	cIGZWin* const pParentWin,
-	const std::vector<TerrainNameEntry>& terrainNames,
+	const std::vector<TerrainEntry>& terrainNames,
 	const cRZBaseString& currentTerrainName)
 {
 	if (!pExtendedTerrainWin)

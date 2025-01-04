@@ -27,6 +27,7 @@
 #include "GZServPtrs.h"
 #include "RegionTerrainData.h"
 #include "SC4String.h"
+#include "TerrainEntryReader.h"
 
 #include <array>
 #include <functional>
@@ -111,7 +112,7 @@ bool ExtendedTerrainWinManager::PostAppInit()
 {
 	if (!initialized)
 	{
-		TerrainNames::Load(terrainNames);
+		TerrainEntryReader::Load(terrainNames);
 
 		cIGZMessageServer2Ptr pMS2;
 

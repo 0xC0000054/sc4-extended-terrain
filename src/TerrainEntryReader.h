@@ -11,11 +11,11 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#include "TerrainNameEntry.h"
+#include "TerrainEntry.h"
 #include <vector>
 
-namespace TerrainNames
+namespace TerrainEntryReader
 {
-	void Load(std::vector<TerrainNameEntry>& entries);
+	void Load(std::vector<TerrainEntry>& entries);
 };
 

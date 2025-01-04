@@ -10,19 +10,18 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#include "TerrainNameEntry.h"
+#pragma once
+#include "cRZBaseString.h"
 
-TerrainNameEntry::TerrainNameEntry()
-	: sectionPrefix()
+class TerrainEntry
 {
-}
+public:
+	TerrainEntry();
+	TerrainEntry(const std::string& prefix);
 
-TerrainNameEntry::TerrainNameEntry(const std::string& prefix)
-	: sectionPrefix(prefix)
-{
-}
+	const cRZBaseString& GetSectionPrefix() const;
 
-const cRZBaseString& TerrainNameEntry::GetSectionPrefix() const
-{
-	return sectionPrefix;
-}
+private:
+
+	cRZBaseString sectionPrefix;
+};
