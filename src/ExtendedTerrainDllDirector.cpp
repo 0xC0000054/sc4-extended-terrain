@@ -24,25 +24,12 @@
 #include "cRZMessage2Standard.h"
 #include "cRZBaseString.h"
 #include "GZServPtrs.h"
-#include "SC4NotificationDialog.h"
 
 #include "ExtendedTerrainWinManager.h"
 #include "FileSystem.h"
 #include "Logger.h"
-#include "TerrainNames.h"
+#include "SC4VersionDetection.h"
 #include "version.h"
-
-#include <array>
-#include <filesystem>
-#include <fstream>
-#include <memory>
-#include <string>
-#include <Windows.h>
-#include "wil/resource.h"
-#include "wil/win32_helpers.h"
-
-#include "EASTLConfigSC4.h"
-#include "EASTL\vector.h"
 
 static constexpr uint32_t kExtendedTerrainDirectorID = 0x7DBE96D9;
 
@@ -65,29 +52,32 @@ public:
 
 	bool PostAppInit()
 	{
-		extendedTerrainWinManager.Init();
+		extendedTerrainWinManager.PostAppInit();
 
 		return true;
 	}
 
 	bool PreAppShutdown()
 	{
-		extendedTerrainWinManager.Shutdown();
+		extendedTerrainWinManager.PreAppShutdown();
 
 		return true;
 	}
 
-	bool OnStart(cIGZCOM * pCOM)
+	bool OnStart(cIGZCOM* pCOM)
 	{
-		const cIGZFrameWork::FrameworkState state = mpFrameWork->GetState();
+		const uint16_t gameVersion = SC4VersionDetection::GetGameVersion();
 
-		if (state < cIGZFrameWork::kStatePreAppInit)
+		if (gameVersion == 641)
 		{
 			mpFrameWork->AddHook(this);
 		}
 		else
 		{
-			PreAppInit();
+			Logger::GetInstance().WriteLineFormatted(
+				LogLevel::Error,
+				"Unsupported game version %u, version 641 is required.",
+				gameVersion);
 		}
 
 		return true;

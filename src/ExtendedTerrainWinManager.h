@@ -32,8 +32,8 @@ public:
 
 	uint32_t Release() override;
 
-	bool Init();
-	bool Shutdown();
+	bool PostAppInit();
+	bool PreAppShutdown();
 
 private:
 

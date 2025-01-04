@@ -27,7 +27,6 @@
 #include "GZServPtrs.h"
 #include "RegionTerrainData.h"
 #include "SC4String.h"
-#include "SC4VersionDetection.h"
 
 #include <array>
 #include <functional>
@@ -108,45 +107,33 @@ uint32_t ExtendedTerrainWinManager::Release()
 	return refCount;
 }
 
-bool ExtendedTerrainWinManager::Init()
+bool ExtendedTerrainWinManager::PostAppInit()
 {
-	const uint16_t gameVersion = SC4VersionDetection::GetGameVersion();
-
-	if (gameVersion == 641)
+	if (!initialized)
 	{
-		if (!initialized)
+		TerrainNames::Load(terrainNames);
+
+		cIGZMessageServer2Ptr pMS2;
+
+		if (pMS2)
 		{
-			TerrainNames::Load(terrainNames);
-
-			cIGZMessageServer2Ptr pMS2;
-
-			if (pMS2)
+			for (uint32_t messageID : RequiredNotifications)
 			{
-				for (uint32_t messageID : RequiredNotifications)
-				{
-					pMS2->AddNotification(this, messageID);
-				}
-
-				// PreCityInit is registered separately because it
-				// will be unregistered when the game calls it.
-				pMS2->AddNotification(this, kSC4MessagePreCityInit);
+				pMS2->AddNotification(this, messageID);
 			}
 
-			initialized = true;
+			// PreCityInit is registered separately because it
+			// will be unregistered when the game calls it.
+			pMS2->AddNotification(this, kSC4MessagePreCityInit);
 		}
-	}
-	else
-	{
-		Logger::GetInstance().WriteLineFormatted(
-			LogLevel::Error,
-			"Unsupported game version %u, version 641 is required.",
-			gameVersion);
+
+		initialized = true;
 	}
 
 	return true;
 }
 
-bool ExtendedTerrainWinManager::Shutdown()
+bool ExtendedTerrainWinManager::PreAppShutdown()
 {
 	if (initialized)
 	{
