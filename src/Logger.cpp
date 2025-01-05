@@ -152,7 +152,7 @@ void Logger::WriteLineCore(const char* const message)
 			PrintLineToDebugOutput(timeStamp.c_str(), message);
 #endif // _DEBUG
 
-			logFile << timeStamp << message;
+			logFile << timeStamp << message << '\n';
 		}
 		else
 		{
@@ -161,7 +161,7 @@ void Logger::WriteLineCore(const char* const message)
 			PrintLineToDebugOutput(nullptr, message);
 #endif // _DEBUG
 
-			logFile << message;
+			logFile << message << '\n';
 		}
 	}
 }
