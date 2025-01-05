@@ -11,11 +11,10 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#include <filesystem>
 
-namespace FileSystem
+class ISettings
 {
-	std::filesystem::path GetConfigFilePath();
-	std::filesystem::path GetLogFilePath();
+public:
+	virtual bool LogLoadedTextureIDs() const = 0;
+	virtual bool LogTextureLoadErrors() const = 0;
 };
-

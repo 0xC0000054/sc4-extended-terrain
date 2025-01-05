@@ -11,11 +11,12 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#include <filesystem>
+#include "cIGZUnknown.h"
 
-namespace FileSystem
+static const uint32_t GZIID_ITerrainS3DTextureBindingFactoryProxy = 0x96E97237;
+
+class ITerrainS3DTextureBindingFactoryProxy : public cIGZUnknown
 {
-	std::filesystem::path GetConfigFilePath();
-	std::filesystem::path GetLogFilePath();
+public:
+	virtual bool IsInitialized() const = 0;
 };
-

@@ -22,6 +22,7 @@
 #include "cIGZWinMgr.h"
 #include "cRZMessage2COMDirector.h"
 #include "cRZMessage2Standard.h"
+#include "cRZAutoRefCount.h"
 #include "cRZBaseString.h"
 #include "GZServPtrs.h"
 
@@ -29,9 +30,45 @@
 #include "FileSystem.h"
 #include "Logger.h"
 #include "SC4VersionDetection.h"
+#include "Settings.h"
+#include "TerrainS3DTextureBindingFactoryProxy.h"
 #include "version.h"
 
+#include <Windows.h>
+
 static constexpr uint32_t kExtendedTerrainDirectorID = 0x7DBE96D9;
+
+namespace
+{
+	namespace
+	{
+		bool OverwriteMemoryUint32(uintptr_t address, uint32_t newValue)
+		{
+			DWORD oldProtect;
+			// Allow the executable memory to be written to.
+			if (!VirtualProtect(
+				reinterpret_cast<void*>(address),
+				sizeof(newValue),
+				PAGE_EXECUTE_READWRITE,
+				&oldProtect))
+			{
+				return false;
+			}
+
+			// Patch the memory at the specified address.
+			*((uint32_t*)address) = newValue;
+			return true;
+		}
+
+		bool InstallTerrainTextureProxyMemoryPatch()
+		{
+			// Make the cSTETerrainView3D class use our TerrainS3DTextureBindingFactoryProxy service
+			// in-place of SC4's built-in cS3DTextureBindingFactory service.
+			// This call overwrites the GZCOM service id that the cSTETerrainView3D class will load.
+			return OverwriteMemoryUint32(0x75c176, GZSRVID_TerrainS3DTextureBindingFactoryProxy);
+		}
+	}
+}
 
 class ExtendedTerrainDllDirector : public cRZCOMDllDirector
 {
@@ -50,9 +87,48 @@ public:
 		return kExtendedTerrainDirectorID;
 	}
 
+	bool PreFrameWorkInit()
+	{
+		cRZAutoRefCount<TerrainS3DTextureBindingFactoryProxy> terrainTextureProxy(
+			new TerrainS3DTextureBindingFactoryProxy(settings),
+			cRZAutoRefCount<TerrainS3DTextureBindingFactoryProxy>::kAddRef);
+
+		cRZAutoRefCount<cIGZSystemService> systemService;
+
+		if (terrainTextureProxy->QueryInterface(GZIID_cIGZSystemService, systemService.AsPPVoid()))
+		{
+			mpFrameWork->AddSystemService(systemService);
+		}
+		return true;
+	}
+
 	bool PostAppInit()
 	{
-		extendedTerrainWinManager.PostAppInit();
+		cRZAutoRefCount<ITerrainS3DTextureBindingFactoryProxy> terrainTextureProxy;
+
+		if (mpFrameWork->GetSystemService(
+			GZSRVID_TerrainS3DTextureBindingFactoryProxy,
+			GZIID_ITerrainS3DTextureBindingFactoryProxy,
+			terrainTextureProxy.AsPPVoid())
+			&& terrainTextureProxy->IsInitialized())
+		{
+			if (InstallTerrainTextureProxyMemoryPatch())
+			{
+				extendedTerrainWinManager.PostAppInit();
+			}
+			else
+			{
+				Logger::GetInstance().WriteLine(
+					LogLevel::Error,
+					"Failed to install the cSTETerrainView3D patch.");
+			}
+		}
+		else
+		{
+			Logger::GetInstance().WriteLine(
+				LogLevel::Error,
+				"Failed to add the terrain texture loading proxy service.");
+		}
 
 		return true;
 	}
@@ -70,6 +146,7 @@ public:
 
 		if (gameVersion == 641)
 		{
+			settings.Load();
 			mpFrameWork->AddHook(this);
 		}
 		else
@@ -85,6 +162,7 @@ public:
 
 private:
 	ExtendedTerrainWinManager extendedTerrainWinManager;
+	Settings settings;
 };
 
 cRZCOMDllDirector* RZGetCOMDllDirector() {

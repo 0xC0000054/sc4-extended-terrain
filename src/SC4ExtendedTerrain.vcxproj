@@ -21,6 +21,8 @@
     <ClCompile Include="..\vendor\EASTL\source\string.cpp" />
     <ClCompile Include="..\vendor\EASTL\source\thread_support.cpp" />
     <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseString.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseSystemService.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseUnknown.cpp" />
     <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseVariant.cpp" />
     <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseWinProc.cpp" />
     <ClCompile Include="..\vendor\gzcom-dll\src\cRZCOMDllDirector.cpp" />
@@ -42,9 +44,11 @@
     <ClCompile Include="RegionTerrainData.cpp" />
     <ClCompile Include="SC4NotificationDialog.cpp" />
     <ClCompile Include="SC4VersionDetection.cpp" />
+    <ClCompile Include="Settings.cpp" />
     <ClCompile Include="StringViewUtil.cpp" />
     <ClCompile Include="TerrainEntry.cpp" />
     <ClCompile Include="TerrainEntryReader.cpp" />
+    <ClCompile Include="TerrainS3DTextureBindingFactoryProxy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\vendor\gzcom-dll\include\cIGZCheatCodeManager.h" />
@@ -57,8 +61,12 @@
     <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinGen.h" />
     <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinMgr.h" />
     <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinProc.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\include\cIS3DTextureBindingFactory.h" />
     <ClInclude Include="..\vendor\gzcom-dll\include\cISC4App.h" />
     <ClInclude Include="..\vendor\gzcom-dll\include\cISC4City.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\include\cRZBaseSystemService.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\include\cRZBaseUnknown.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\include\cS3DTextureBinding.h" />
     <ClInclude Include="..\vendor\gzcom-dll\include\StringResourceKey.h" />
     <ClInclude Include="..\vendor\gzcom-dll\include\StringResourceManager.h" />
     <ClInclude Include="DebugUtil.h" />
@@ -68,13 +76,17 @@
     <ClInclude Include="GZFileStreamBufAdapter.h" />
     <ClInclude Include="GZStringConvert.h" />
     <ClInclude Include="IExtendedTerrainWinManager.h" />
+    <ClInclude Include="ISettings.h" />
+    <ClInclude Include="ITerrainS3DTextureBindingFactoryProxy.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="RegionTerrainData.h" />
     <ClInclude Include="SC4NotificationDialog.h" />
     <ClInclude Include="SC4VersionDetection.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="StringViewUtil.h" />
     <ClInclude Include="TerrainEntry.h" />
     <ClInclude Include="TerrainEntryReader.h" />
+    <ClInclude Include="TerrainS3DTextureBindingFactoryProxy.h" />
     <ClInclude Include="version.h" />
   </ItemGroup>
   <ItemGroup>

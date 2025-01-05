@@ -35,6 +35,14 @@ namespace
 	}
 }
 
+std::filesystem::path FileSystem::GetConfigFilePath()
+{
+	std::filesystem::path path = GetDllFolderPath();
+	path /= L"SC4ExtendedTerrain.ini"sv;
+
+	return path;
+}
+
 std::filesystem::path FileSystem::GetLogFilePath()
 {
 	std::filesystem::path path = GetDllFolderPath();

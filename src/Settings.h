@@ -11,11 +11,23 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#include <filesystem>
+#include "ISettings.h"
 
-namespace FileSystem
+class Settings final : public ISettings
 {
-	std::filesystem::path GetConfigFilePath();
-	std::filesystem::path GetLogFilePath();
-};
+public:
+	Settings();
 
+	void Load();
+
+private:
+	// ISettings
+
+	bool LogLoadedTextureIDs() const override;
+	bool LogTextureLoadErrors() const override;
+
+	// Private members
+
+	bool logTextureIDs;
+	bool logTextureLoadErrors;
+};

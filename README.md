@@ -14,6 +14,13 @@ are shared between different texture mods.
 This DLL mod is intended as a dependency for other mods that add new terrain types beyond the Tropical
 terrain type that Maxis created, it does not add any terrain types to the game by itself.
 
+## ExtendedTerrain INI
+
+_SC4ExtendedTerrain.ini_ contains two options for logging the game's terrain texture loading.
+
+The _LogTextureIDs_ option will log the texture ids as the game requests them.
+The _LogTextureLoadErrors_ option will only log the texture ids that the game fails to load.
+
 ## Download
 
 The plugin can be downloaded from the Releases tab: https://github.com/0xC0000054/sc4-extended-terrain/releases
@@ -28,7 +35,7 @@ The plugin may work on Windows 7 or later with the [Microsoft Visual C++ 2022 x8
 ## Installation
 
 1. Close SimCity 4.
-2. Copy _SC4ExtendedTerrain.dll_ and _ExtendedTerrainUI.dat_ into the top-level of the Plugins folder in the SimCity 4 installation directory or Documents/SimCity 4 directory.
+2. Copy _SC4ExtendedTerrain.dll_, _SC4ExtendedTerrain.ini_ and _ExtendedTerrainUI.dat_ into the top-level of the Plugins folder in the SimCity 4 installation directory or Documents/SimCity 4 directory.
 3. Start SimCity 4.
 
 ## Usage
