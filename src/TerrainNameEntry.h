@@ -11,11 +11,19 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#include "TerrainEntry.h"
-#include <vector>
+#include "cRZBaseString.h"
 
-namespace TerrainEntryReader
+class TerrainNameEntry
 {
-	void Load(std::vector<TerrainEntry>& entries);
-};
+public:
+	TerrainNameEntry();
+	TerrainNameEntry(const std::string& prefix);
+	TerrainNameEntry(const std::string& prefix, const std::string& displayName);
 
+	const cRZBaseString& GetDisplayName() const;
+	const cRZBaseString& GetSectionPrefix() const;
+
+private:
+	cRZBaseString displayName;
+	cRZBaseString sectionPrefix;
+};

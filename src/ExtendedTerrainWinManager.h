@@ -14,7 +14,7 @@
 #include "cIGZMessageTarget2.h"
 #include "IExtendedTerrainWinManager.h"
 #include "ExtendedTerrainWin.h"
-#include "TerrainEntry.h"
+#include "TerrainNameCollection.h"
 
 class cIGZMessage2Standard;
 class cIGZMessageServer2;
@@ -60,8 +60,8 @@ private:
 
 	uint32_t refCount;
 	ExtendedTerrainWin extendedTerrainWin;
-	std::vector<TerrainEntry> terrainNames;
-	cRZBaseString currentTerrainName;
+	TerrainNameCollection terrainNames;
+	cRZBaseString currentTerrainPrefix;
 	cIGZWin* pRegionScreen;
 	bool initialized;
 	bool firstCityLoaded;

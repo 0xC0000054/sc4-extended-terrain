@@ -46,8 +46,9 @@
     <ClCompile Include="SC4VersionDetection.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="StringViewUtil.cpp" />
-    <ClCompile Include="TerrainEntry.cpp" />
-    <ClCompile Include="TerrainEntryReader.cpp" />
+    <ClCompile Include="TerrainIniReader.cpp" />
+    <ClCompile Include="TerrainNameCollection.cpp" />
+    <ClCompile Include="TerrainNameEntry.cpp" />
     <ClCompile Include="TerrainS3DTextureBindingFactoryProxy.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -84,9 +85,9 @@
     <ClInclude Include="SC4VersionDetection.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="StringViewUtil.h" />
-    <ClInclude Include="TerrainEntry.h" />
-    <ClInclude Include="TerrainEntryReader.h" />
-    <ClInclude Include="TerrainS3DTextureBindingFactoryProxy.h" />
+    <ClInclude Include="TerrainIniReader.h" />
+    <ClInclude Include="TerrainNameCollection.h" />
+    <ClInclude Include="TerrainNameEntry.h" />
     <ClInclude Include="version.h" />
   </ItemGroup>
   <ItemGroup>

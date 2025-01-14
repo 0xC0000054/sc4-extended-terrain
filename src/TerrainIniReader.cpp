@@ -10,7 +10,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#include "TerrainEntryReader.h"
+#include "TerrainIniReader.h"
 #include "DebugUtil.h"
 #include "Logger.h"
 #include "boost/property_tree/ptree.hpp"
@@ -89,13 +89,53 @@ namespace
 
 		return tree;
 	}
+
+	void InitializeTerrainNames(
+		const boost::property_tree::ptree& terrainIni,
+		const std::vector<std::string>& terrainPrefixes,
+		TerrainNameCollection& terrainNames)
+	{
+		terrainNames.clear();
+
+		auto optionalDisplayNames = terrainIni.get_child_optional("DisplayNames");
+
+		if (optionalDisplayNames.has_value())
+		{
+			auto& displayNames = optionalDisplayNames.get();
+
+			if (!displayNames.empty())
+			{
+				for (auto& prefix : terrainPrefixes)
+				{
+					auto optionalDisplayName = displayNames.get_optional<std::string>(prefix);
+
+					if (optionalDisplayName)
+					{
+						terrainNames.emplace_back(prefix, optionalDisplayName.get());
+					}
+					else
+					{
+						terrainNames.emplace_back(prefix);
+					}
+				}
+			}
+		}
+
+		if (terrainNames.empty())
+		{
+			for (auto& prefix : terrainPrefixes)
+			{
+				terrainNames.emplace_back(prefix);
+			}
+		}
+	}
 }
 
-void TerrainEntryReader::Load(std::vector<TerrainEntry>& entries)
+void TerrainIniReader::Parse(TerrainNameCollection& terrainNames)
 {
 	Logger& logger = Logger::GetInstance();
 
-	entries.clear();
+	terrainNames.clear();
 
 	try
 	{
@@ -104,6 +144,8 @@ void TerrainEntryReader::Load(std::vector<TerrainEntry>& entries)
 		if (!tree.empty())
 		{
 			const std::string_view kMiscTextures = "MiscTextures";
+
+			std::vector<std::string> terrainPrefixes;
 
 			for (const auto& section : tree)
 			{
@@ -124,10 +166,12 @@ void TerrainEntryReader::Load(std::vector<TerrainEntry>& entries)
 					// Skip any MiscTexture sections that don't have a TextureMapTable.
 					if (textureMapTable.has_value())
 					{
-						entries.emplace_back(prefix);
+						terrainPrefixes.emplace_back(prefix);
 					}
 				}
 			}
+
+			InitializeTerrainNames(tree, terrainPrefixes, terrainNames);
 		}
 		else
 		{

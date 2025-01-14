@@ -11,17 +11,10 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#include "cRZBaseString.h"
+#include "TerrainNameCollection.h"
 
-class TerrainEntry
+namespace TerrainIniReader
 {
-public:
-	TerrainEntry();
-	TerrainEntry(const std::string& prefix);
-
-	const cRZBaseString& GetSectionPrefix() const;
-
-private:
-
-	cRZBaseString sectionPrefix;
+	void Parse(TerrainNameCollection& terrainNames);
 };
+

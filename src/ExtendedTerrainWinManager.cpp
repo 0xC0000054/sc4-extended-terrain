@@ -27,7 +27,7 @@
 #include "GZServPtrs.h"
 #include "RegionTerrainData.h"
 #include "SC4String.h"
-#include "TerrainEntryReader.h"
+#include "TerrainIniReader.h"
 
 #include <array>
 #include <functional>
@@ -112,7 +112,7 @@ bool ExtendedTerrainWinManager::PostAppInit()
 {
 	if (!initialized)
 	{
-		TerrainEntryReader::Load(terrainNames);
+		TerrainIniReader::Parse(terrainNames);
 
 		cIGZMessageServer2Ptr pMS2;
 
@@ -183,7 +183,17 @@ bool ExtendedTerrainWinManager::DoMessage(cIGZMessage2* pMessage)
 
 void ExtendedTerrainWinManager::SetCurrentTerrainName(const cIGZWinCombo& combo)
 {
-	combo.GetStringFromIndex(combo.GetSelection(), currentTerrainName);
+	cRZBaseString displayName;
+
+	if (combo.GetStringFromIndex(combo.GetSelection(), displayName))
+	{
+		auto iterator = terrainNames.find_display_name(displayName);
+
+		if (iterator != terrainNames.end())
+		{
+			currentTerrainPrefix = iterator->GetSectionPrefix();
+		}
+	}
 }
 
 void ExtendedTerrainWinManager::WindowClosed()
@@ -267,10 +277,10 @@ void ExtendedTerrainWinManager::PostRegionInit()
 		}
 		else
 		{
-			if (!RegionTerrainData::Load(*pSC4App, currentTerrainName))
+			if (!RegionTerrainData::Load(*pSC4App, currentTerrainPrefix))
 			{
 				// If the region data doesn't exist, use SC4's standard terrain type.
-				currentTerrainName.FromChar("Tropical");
+				currentTerrainPrefix.FromChar("Tropical");
 			}
 
 			UpdateTerrainPrefixString(false);
@@ -324,7 +334,7 @@ void ExtendedTerrainWinManager::ToggleExtendedTerrainWindowVisibility()
 	}
 	else
 	{
-		extendedTerrainWin.Create(pRegionScreen, terrainNames, currentTerrainName);
+		extendedTerrainWin.Create(pRegionScreen, terrainNames, currentTerrainPrefix);
 	}
 }
 
@@ -332,10 +342,10 @@ void ExtendedTerrainWinManager::UpdateTerrainPrefixString(bool saveToRegionFolde
 {
 	cIGZString* const texturePrefixAsGZString = spTerrainTexturePrefix->AsIGZString();
 
-	if (currentTerrainName.Strlen() > 0
-		&& !texturePrefixAsGZString->IsEqual(currentTerrainName, false))
+	if (currentTerrainPrefix.Strlen() > 0
+		&& !texturePrefixAsGZString->IsEqual(currentTerrainPrefix, false))
 	{
-		texturePrefixAsGZString->Copy(currentTerrainName);
+		texturePrefixAsGZString->Copy(currentTerrainPrefix);
 
 		if (firstCityLoaded)
 		{
@@ -350,7 +360,7 @@ void ExtendedTerrainWinManager::UpdateTerrainPrefixString(bool saveToRegionFolde
 
 			if (pSC4App)
 			{
-				if (!RegionTerrainData::Save(*pSC4App, currentTerrainName))
+				if (!RegionTerrainData::Save(*pSC4App, currentTerrainPrefix))
 				{
 					Logger::GetInstance().WriteLine(
 						LogLevel::Error,

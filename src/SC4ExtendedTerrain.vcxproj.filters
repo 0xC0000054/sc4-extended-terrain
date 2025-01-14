@@ -120,12 +120,6 @@
     <ClCompile Include="GZStringConvert.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TerrainEntry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TerrainEntryReader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TerrainS3DTextureBindingFactoryProxy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -136,6 +130,15 @@
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
     <ClCompile Include="Settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainIniReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainNameEntry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainNameCollection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -221,15 +224,6 @@
     <ClInclude Include="GZStringConvert.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TerrainEntry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainEntryReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainS3DTextureBindingFactoryProxy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\vendor\gzcom-dll\include\cS3DTextureBinding.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
@@ -249,6 +243,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainIniReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainNameEntry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainNameCollection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

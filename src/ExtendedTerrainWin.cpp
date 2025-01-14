@@ -120,8 +120,8 @@ ExtendedTerrainWin::ExtendedTerrainWin(IExtendedTerrainWinManager& pWinMgr)
 
 bool ExtendedTerrainWin::Create(
 	cIGZWin* const pParentWin,
-	const std::vector<TerrainEntry>& terrainNames,
-	const cRZBaseString& currentTerrainName)
+	const TerrainNameCollection& terrainNames,
+	const cRZBaseString& currentTerrainPrefix)
 {
 	if (!pExtendedTerrainWin)
 	{
@@ -163,14 +163,16 @@ bool ExtendedTerrainWin::Create(
 
 			for (const auto& item : terrainNames)
 			{
-				pCombo->InsertString(item.GetSectionPrefix(), -2);
+				pCombo->InsertString(item.GetDisplayName(), -2);
 			}
 
 			if (terrainNames.size() > 1)
 			{
 				int32_t index = 0;
+				auto currentTerrainNameEntry = terrainNames.find_prefix_name(currentTerrainPrefix);
 
-				if (pCombo->GetIndexFromString(index, currentTerrainName))
+				if (currentTerrainNameEntry != terrainNames.end() &&
+					pCombo->GetIndexFromString(index, currentTerrainNameEntry->GetDisplayName()))
 				{
 					pCombo->SetSelection(index, false);
 				}

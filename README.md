@@ -14,6 +14,21 @@ are shared between different texture mods.
 This DLL mod is intended as a dependency for other mods that add new terrain types beyond the Tropical
 terrain type that Maxis created, it does not add any terrain types to the game by itself.
 
+## New Terrain.ini Functionality
+
+The plugin add the following new functionality to the Maxis terrain.ini record.
+
+### DisplayNames section
+
+This section allows terrain mod developers to optionally provide a display name for use in the Extended Terrain UI.
+The section entry key is the prefix name, and the value is the display name.
+Any terrain types that are not included will use the prefix name as the display name.
+
+```ini
+[DisplayNames]
+Desert=Sahara Desert
+```
+
 ## ExtendedTerrain INI
 
 _SC4ExtendedTerrain.ini_ contains two options for logging the game's terrain texture loading.

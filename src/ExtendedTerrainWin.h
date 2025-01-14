@@ -14,7 +14,7 @@
 #include "cRZBaseString.h"
 #include "cRZBaseWinProc.h"
 #include "IExtendedTerrainWinManager.h"
-#include "TerrainEntry.h"
+#include "TerrainNameCollection.h"
 #include <vector>
 
 class cIGZWin;
@@ -26,8 +26,8 @@ public:
 
 	bool Create(
 		cIGZWin* const pParentWin,
-		const std::vector<TerrainEntry>& terrainNames,
-		const cRZBaseString& currentTerrainName);
+		const TerrainNameCollection& terrainNames,
+		const cRZBaseString& currentTerrainPrefix);
 
 	bool Destroy(cIGZWin& parentWin);
 
