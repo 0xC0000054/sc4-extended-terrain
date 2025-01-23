@@ -32,6 +32,7 @@
 #include "SC4VersionDetection.h"
 #include "Settings.h"
 #include "TerrainS3DTextureBindingFactoryProxy.h"
+#include "TerrainTextureRedirectManager.h"
 #include "version.h"
 
 #include <Windows.h>
@@ -74,6 +75,9 @@ class ExtendedTerrainDllDirector : public cRZCOMDllDirector
 {
 public:
 	ExtendedTerrainDllDirector()
+		: settings(),
+		  textureRedirectManager(),
+		  extendedTerrainWinManager(textureRedirectManager)
 	{
 		std::filesystem::path logFilePath = FileSystem::GetLogFilePath();
 
@@ -90,7 +94,7 @@ public:
 	bool PreFrameWorkInit()
 	{
 		cRZAutoRefCount<TerrainS3DTextureBindingFactoryProxy> terrainTextureProxy(
-			new TerrainS3DTextureBindingFactoryProxy(settings),
+			new TerrainS3DTextureBindingFactoryProxy(settings, textureRedirectManager),
 			cRZAutoRefCount<TerrainS3DTextureBindingFactoryProxy>::kAddRef);
 
 		cRZAutoRefCount<cIGZSystemService> systemService;
@@ -163,6 +167,7 @@ public:
 private:
 	ExtendedTerrainWinManager extendedTerrainWinManager;
 	Settings settings;
+	TerrainTextureRedirectManager textureRedirectManager;
 };
 
 cRZCOMDllDirector* RZGetCOMDllDirector() {

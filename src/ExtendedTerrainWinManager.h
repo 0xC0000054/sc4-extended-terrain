@@ -13,6 +13,7 @@
 #pragma once
 #include "cIGZMessageTarget2.h"
 #include "IExtendedTerrainWinManager.h"
+#include "ITerrainTextureRedirectManager.h"
 #include "ExtendedTerrainWin.h"
 #include "TerrainNameCollection.h"
 
@@ -24,7 +25,7 @@ class ExtendedTerrainWinManager final :
 	private IExtendedTerrainWinManager
 {
 public:
-	ExtendedTerrainWinManager();
+	ExtendedTerrainWinManager(ITerrainTextureRedirectManager& textureRedirectManager);
 
 	bool QueryInterface(uint32_t riid, void** ppvObj) override;
 
@@ -63,6 +64,7 @@ private:
 	TerrainNameCollection terrainNames;
 	cRZBaseString currentTerrainPrefix;
 	cIGZWin* pRegionScreen;
+	ITerrainTextureRedirectManager& textureRedirectManager;
 	bool initialized;
 	bool firstCityLoaded;
 	bool exitedCity;

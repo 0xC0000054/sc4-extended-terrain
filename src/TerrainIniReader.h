@@ -12,9 +12,12 @@
 
 #pragma once
 #include "TerrainNameCollection.h"
+#include "ITerrainTextureRedirectManager.h"
 
 namespace TerrainIniReader
 {
-	void Parse(TerrainNameCollection& terrainNames);
+	void Parse(
+		TerrainNameCollection& terrainNames,
+		ITerrainTextureRedirectManager& textureRedirectManager);
 };
 

@@ -61,10 +61,11 @@ typedef bool(__cdecl* cSTETerrain_StaticShutdownFn)(void*);
 static const cSTETerrain_StaticShutdownFn cSTETerrain_StaticShutdown = reinterpret_cast<cSTETerrain_StaticShutdownFn>(0x74fc20);
 
 
-ExtendedTerrainWinManager::ExtendedTerrainWinManager()
+ExtendedTerrainWinManager::ExtendedTerrainWinManager(ITerrainTextureRedirectManager& textureRedirectManager)
 	: refCount(0),
 	  extendedTerrainWin(*this),
 	  pRegionScreen(nullptr),
+	  textureRedirectManager(textureRedirectManager),
 	  initialized(false),
 	  firstCityLoaded(false),
 	  exitedCity(false)
@@ -112,7 +113,7 @@ bool ExtendedTerrainWinManager::PostAppInit()
 {
 	if (!initialized)
 	{
-		TerrainIniReader::Parse(terrainNames);
+		TerrainIniReader::Parse(terrainNames, textureRedirectManager);
 
 		cIGZMessageServer2Ptr pMS2;
 
@@ -340,6 +341,8 @@ void ExtendedTerrainWinManager::ToggleExtendedTerrainWindowVisibility()
 
 void ExtendedTerrainWinManager::UpdateTerrainPrefixString(bool saveToRegionFolder)
 {
+	textureRedirectManager.SetTerrainPrefix(currentTerrainPrefix);
+
 	cIGZString* const texturePrefixAsGZString = spTerrainTexturePrefix->AsIGZString();
 
 	if (currentTerrainPrefix.Strlen() > 0

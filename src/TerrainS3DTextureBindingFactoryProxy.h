@@ -16,6 +16,7 @@
 #include "cRZBaseSystemService.h"
 #include "ISettings.h"
 #include "ITerrainS3DTextureBindingFactoryProxy.h"
+#include "ITerrainTextureRedirectManager.h"
 
 static constexpr uint32_t GZSRVID_TerrainS3DTextureBindingFactoryProxy = 0xF379B4BF;
 
@@ -25,7 +26,9 @@ class TerrainS3DTextureBindingFactoryProxy :
 	public ITerrainS3DTextureBindingFactoryProxy
 {
 public:
-	TerrainS3DTextureBindingFactoryProxy(const ISettings& settings);
+	TerrainS3DTextureBindingFactoryProxy(
+		const ISettings& settings,
+		const ITerrainTextureRedirectManager& textureRedirectManager);
 
 	// ITerrainS3DTextureBindingFactoryProxy
 
@@ -68,6 +71,7 @@ public:
 
 private:
 	const ISettings& settings;
+	const ITerrainTextureRedirectManager& textureRedirectManager;
 	cIS3DTextureBindingFactory* pFactory;
 };
 

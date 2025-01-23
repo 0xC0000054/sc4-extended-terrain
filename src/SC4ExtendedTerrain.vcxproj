@@ -50,6 +50,8 @@
     <ClCompile Include="TerrainNameCollection.cpp" />
     <ClCompile Include="TerrainNameEntry.cpp" />
     <ClCompile Include="TerrainS3DTextureBindingFactoryProxy.cpp" />
+    <ClCompile Include="TerrainTextureRedirectEntry.cpp" />
+    <ClCompile Include="TerrainTextureRedirectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\vendor\gzcom-dll\include\cIGZCheatCodeManager.h" />
@@ -79,6 +81,7 @@
     <ClInclude Include="IExtendedTerrainWinManager.h" />
     <ClInclude Include="ISettings.h" />
     <ClInclude Include="ITerrainS3DTextureBindingFactoryProxy.h" />
+    <ClInclude Include="ITerrainTextureRedirectManager.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="RegionTerrainData.h" />
     <ClInclude Include="SC4NotificationDialog.h" />
@@ -88,6 +91,9 @@
     <ClInclude Include="TerrainIniReader.h" />
     <ClInclude Include="TerrainNameCollection.h" />
     <ClInclude Include="TerrainNameEntry.h" />
+    <ClInclude Include="TerrainTextureRedirectEntry.h" />
+    <ClInclude Include="TerrainTextureRedirectManager.h" />
+    <ClInclude Include="TerrainTexture.h" />
     <ClInclude Include="version.h" />
   </ItemGroup>
   <ItemGroup>

@@ -20,10 +20,13 @@
 #include "Logger.h"
 
 
-TerrainS3DTextureBindingFactoryProxy::TerrainS3DTextureBindingFactoryProxy(const ISettings& settings)
+TerrainS3DTextureBindingFactoryProxy::TerrainS3DTextureBindingFactoryProxy(
+	const ISettings& settings,
+	const ITerrainTextureRedirectManager& textureRedirectManager)
 	: cRZBaseSystemService(GZSRVID_TerrainS3DTextureBindingFactoryProxy, 0x130ee8),
 	  pFactory(nullptr),
-	  settings(settings)
+	  settings(settings),
+	  textureRedirectManager(textureRedirectManager)
 {
 }
 
@@ -96,9 +99,12 @@ bool TerrainS3DTextureBindingFactoryProxy::SetGDriver(cIGZGDriver* pDriver)
 	return pFactory->SetGDriver(pDriver);
 }
 
-bool TerrainS3DTextureBindingFactoryProxy::GetBinding(cGZPersistResourceKey const& key, cS3DTextureBinding** ppTextureBinding)
+bool TerrainS3DTextureBindingFactoryProxy::GetBinding(cGZPersistResourceKey const& originalResKey, cS3DTextureBinding** ppTextureBinding)
 {
-	// TODO: Add a way to redirect requests for specific textures.
+	const cGZPersistResourceKey key(
+		originalResKey.type,
+		originalResKey.group,
+		textureRedirectManager.GetRedirectedTextureInstanceID(originalResKey.instance));
 
 	if (settings.LogLoadedTextureIDs())
 	{
