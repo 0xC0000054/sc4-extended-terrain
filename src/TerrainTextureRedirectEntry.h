@@ -30,8 +30,8 @@ public:
 	// We support redirecting requests for some of the game's hard-coded texture instance ids to new
 	// values that the user configures in terrain.ini.
 	// Note that all instance ids using the redirect system must use the 0x00000ZTT format.
-	bool TryGetRedirectedZoom0TextureID(TerrainTexture texture, uint32_t& redirectedInstanceID) const;
-	void SetRedirectedZoom0TextureID(TerrainTexture texture, uint32_t redirectedInstanceID);
+	bool TryGetRedirectedTextureID(TerrainTexture texture, uint32_t& redirectedInstanceID) const;
+	void SetRedirectedTextureID(TerrainTexture texture, uint32_t redirectedInstanceID);
 
 	// A texture id offset is used to separate terrain mods that use the same 0x00000ZTT values.
 	// The offset is added to the texture id that SC4 requests.
@@ -52,6 +52,9 @@ private:
 	uint32_t inshoreWaterZoom0TextureID;
 	uint32_t midshoreWaterZoom0TextureID;
 	uint32_t outshoreWaterZoom0TextureID;
+	uint32_t waterBoxGradientTextureID;
+	uint32_t waterColorDepthGradientTextureID;
+	uint32_t waterGlareMaskTextureID;
 	uint32_t textureIDOffset;
 };
 

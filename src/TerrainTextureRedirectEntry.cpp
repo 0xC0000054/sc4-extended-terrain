@@ -20,6 +20,9 @@ TerrainTextureRedirectEntry::TerrainTextureRedirectEntry()
 	  inshoreWaterZoom0TextureID(0),
 	  midshoreWaterZoom0TextureID(0),
 	  outshoreWaterZoom0TextureID(0),
+	  waterBoxGradientTextureID(0),
+	  waterColorDepthGradientTextureID(0),
+	  waterGlareMaskTextureID(0),
 	  textureIDOffset(0)
 {
 }
@@ -35,9 +38,12 @@ TerrainTextureRedirectEntry::TerrainTextureRedirectEntry(
 	  inshoreWaterZoom0TextureID(0),
 	  midshoreWaterZoom0TextureID(0),
 	  outshoreWaterZoom0TextureID(0),
+	  waterBoxGradientTextureID(0),
+	  waterColorDepthGradientTextureID(0),
+	  waterGlareMaskTextureID(0),
 	  textureIDOffset(0)
 {
-	SetRedirectedZoom0TextureID(texture, redirectedInstanceID);
+	SetRedirectedTextureID(texture, redirectedInstanceID);
 }
 
 TerrainTextureRedirectEntry::TerrainTextureRedirectEntry(const std::string& terrainName, uint32_t textureIDOffset)
@@ -48,11 +54,14 @@ TerrainTextureRedirectEntry::TerrainTextureRedirectEntry(const std::string& terr
 	  inshoreWaterZoom0TextureID(0),
 	  midshoreWaterZoom0TextureID(0),
 	  outshoreWaterZoom0TextureID(0),
+	  waterBoxGradientTextureID(0),
+	  waterColorDepthGradientTextureID(0),
+	  waterGlareMaskTextureID(0),
 	  textureIDOffset(textureIDOffset)
 {
 }
 
-bool TerrainTextureRedirectEntry::TryGetRedirectedZoom0TextureID(TerrainTexture texture, uint32_t& value) const
+bool TerrainTextureRedirectEntry::TryGetRedirectedTextureID(TerrainTexture texture, uint32_t& value) const
 {
 	switch (texture)
 	{
@@ -74,6 +83,15 @@ bool TerrainTextureRedirectEntry::TryGetRedirectedZoom0TextureID(TerrainTexture 
 	case TerrainTexture::OutshoreWater:
 		value = outshoreWaterZoom0TextureID;
 		break;
+	case TerrainTexture::WaterBoxGradient:
+		value = waterBoxGradientTextureID;
+		break;
+	case TerrainTexture::WaterColorDepthGradient:
+		value = waterColorDepthGradientTextureID;
+		break;
+	case TerrainTexture::WaterGlareMask:
+		value = waterGlareMaskTextureID;
+		break;
 	default:
 		value = 0;
 		break;
@@ -82,7 +100,7 @@ bool TerrainTextureRedirectEntry::TryGetRedirectedZoom0TextureID(TerrainTexture 
 	return value != 0;
 }
 
-void TerrainTextureRedirectEntry::SetRedirectedZoom0TextureID(TerrainTexture texture, uint32_t value)
+void TerrainTextureRedirectEntry::SetRedirectedTextureID(TerrainTexture texture, uint32_t value)
 {
 	switch (texture)
 	{
@@ -103,6 +121,15 @@ void TerrainTextureRedirectEntry::SetRedirectedZoom0TextureID(TerrainTexture tex
 		break;
 	case TerrainTexture::OutshoreWater:
 		outshoreWaterZoom0TextureID = value;
+		break;
+	case TerrainTexture::WaterBoxGradient:
+		waterBoxGradientTextureID = value;
+		break;
+	case TerrainTexture::WaterColorDepthGradient:
+		waterColorDepthGradientTextureID = value;
+		break;
+	case TerrainTexture::WaterGlareMask:
+		waterBoxGradientTextureID = value;
 		break;
 	}
 }

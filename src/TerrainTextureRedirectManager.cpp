@@ -27,6 +27,11 @@ enum class ZoomLevel : uint32_t
 
 struct FixedTerrainTextureInfo
 {
+	constexpr FixedTerrainTextureInfo(TerrainTexture texture)
+		: texture(texture), shiftedZoomLevel(0)
+	{
+	}
+
 	constexpr FixedTerrainTextureInfo(TerrainTexture texture, ZoomLevel zoomLevel)
 		: texture(texture), shiftedZoomLevel(static_cast<uint32_t>(zoomLevel) << 8)
 	{
@@ -74,6 +79,10 @@ static constexpr frozen::unordered_map<uint32_t, const FixedTerrainTextureInfo, 
 	{ 0x09187302, FixedTerrainTextureInfo(TerrainTexture::OutshoreWater, ZoomLevel::Zoom2) },
 	{ 0x09187303, FixedTerrainTextureInfo(TerrainTexture::OutshoreWater, ZoomLevel::Zoom3) },
 	{ 0x09187304, FixedTerrainTextureInfo(TerrainTexture::OutshoreWater, ZoomLevel::Zoom4) },
+
+	{ 0xC9EFB727, FixedTerrainTextureInfo(TerrainTexture::WaterBoxGradient) },
+	{ 0x69EFB6F8, FixedTerrainTextureInfo(TerrainTexture::WaterColorDepthGradient) },
+	{ 0x69EFB7DA, FixedTerrainTextureInfo(TerrainTexture::WaterGlareMask) },
 };
 
 namespace
@@ -91,18 +100,21 @@ namespace
 		return originalTextureID;
 	}
 
-	uint32_t GetTextureIDForZoomLevel(
+	uint32_t RemapFixedTextureID(
 		const TerrainTextureRedirectEntry& mapping,
 		const FixedTerrainTextureInfo& info,
 		uint32_t originalTextureID)
 	{
 		uint32_t newTextureIID = 0;
 
-		if (mapping.TryGetRedirectedZoom0TextureID(info.texture, newTextureIID))
+		if (mapping.TryGetRedirectedTextureID(info.texture, newTextureIID))
 		{
-			// Add the correct zoom level to the zoom 0 texture id.
-			// We standardize on using the 0x00000014-0x00000414 format for all terrain texture zoom levels.
-			newTextureIID = newTextureIID + info.shiftedZoomLevel;
+			if (info.shiftedZoomLevel > 0)
+			{
+				// Add the correct zoom level to the zoom 0 texture id.
+				// We standardize on using the 0x00000014-0x00000414 format for all terrain texture zoom levels.
+				newTextureIID = newTextureIID + info.shiftedZoomLevel;
+			}
 		}
 		else
 		{
@@ -130,7 +142,7 @@ void TerrainTextureRedirectManager::AddTextureRedirect(
 
 	if (existingItem != terrainTextureMappings.end())
 	{
-		existingItem->SetRedirectedZoom0TextureID(texture, redirectedZoom0InstanceID);
+		existingItem->SetRedirectedTextureID(texture, redirectedZoom0InstanceID);
 	}
 	else
 	{
@@ -167,7 +179,7 @@ uint32_t TerrainTextureRedirectManager::GetRedirectedTextureInstanceID(uint32_t 
 
 		if (fixedTerrainTextureIDItem != FixedTerrainTextureIDMap.end())
 		{
-			result = GetTextureIDForZoomLevel(mapping, fixedTerrainTextureIDItem->second, originalInstanceID);
+			result = RemapFixedTextureID(mapping, fixedTerrainTextureIDItem->second, originalInstanceID);
 		}
 		else
 		{

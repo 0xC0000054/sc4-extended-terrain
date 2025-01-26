@@ -31,11 +31,13 @@
 #include "Logger.h"
 #include "SC4VersionDetection.h"
 #include "Settings.h"
+#include "TerrainGimexFactoryProxy.h"
 #include "TerrainS3DTextureBindingFactoryProxy.h"
 #include "TerrainTextureRedirectManager.h"
 #include "version.h"
 
 #include <Windows.h>
+#include "wil/result.h"
 
 static constexpr uint32_t kExtendedTerrainDirectorID = 0x7DBE96D9;
 
@@ -43,30 +45,18 @@ namespace
 {
 	namespace
 	{
-		bool OverwriteMemoryUint32(uintptr_t address, uint32_t newValue)
+		void OverwriteMemoryUint32(uintptr_t address, uint32_t newValue)
 		{
 			DWORD oldProtect;
 			// Allow the executable memory to be written to.
-			if (!VirtualProtect(
+			THROW_IF_WIN32_BOOL_FALSE(VirtualProtect(
 				reinterpret_cast<void*>(address),
 				sizeof(newValue),
 				PAGE_EXECUTE_READWRITE,
-				&oldProtect))
-			{
-				return false;
-			}
+				&oldProtect));
 
 			// Patch the memory at the specified address.
 			*((uint32_t*)address) = newValue;
-			return true;
-		}
-
-		bool InstallTerrainTextureProxyMemoryPatch()
-		{
-			// Make the cSTETerrainView3D class use our TerrainS3DTextureBindingFactoryProxy service
-			// in-place of SC4's built-in cS3DTextureBindingFactory service.
-			// This call overwrites the GZCOM service id that the cSTETerrainView3D class will load.
-			return OverwriteMemoryUint32(0x75c176, GZSRVID_TerrainS3DTextureBindingFactoryProxy);
 		}
 	}
 }
@@ -84,6 +74,27 @@ public:
 		Logger& logger = Logger::GetInstance();
 		logger.Init(logFilePath, LogLevel::Error, false);
 		logger.WriteLogFileHeader("SC4ExtendedTerrain v" PLUGIN_VERSION_STR);
+	}
+
+	bool GetClassObject(uint32_t rclsid, uint32_t riid, void** ppvObj)
+	{
+		bool result = false;
+
+		if (rclsid == GZCLSID_TerrainGimexFactoryProxy)
+		{
+			cRZAutoRefCount<TerrainGimexFactoryProxy> proxy(
+				new TerrainGimexFactoryProxy(settings, textureRedirectManager),
+				cRZAutoRefCount<TerrainGimexFactoryProxy>::kAddRef);
+
+			result = proxy->QueryInterface(riid, ppvObj);
+		}
+
+		return result;
+	}
+
+	void EnumClassObjects(ClassObjectEnumerationCallback pCallback, void* pContext)
+	{
+		pCallback(GZCLSID_TerrainGimexFactoryProxy, 0, pContext);
 	}
 
 	uint32_t GetDirectorID() const
@@ -116,15 +127,24 @@ public:
 			terrainTextureProxy.AsPPVoid())
 			&& terrainTextureProxy->IsInitialized())
 		{
-			if (InstallTerrainTextureProxyMemoryPatch())
+			try
 			{
+				// Patch cSTETerrainView3D to use our TerrainGimexFactoryProxy class in-place
+				// of SC4's built-in cGZGimexFactory class.
+				// This call overwrites the GZCOM class id that the cSTETerrainView3D class will load.
+				OverwriteMemoryUint32(0x75c132, GZCLSID_TerrainGimexFactoryProxy);
+				// Patch cSTETerrainView3D to use our TerrainS3DTextureBindingFactoryProxy service
+				// in-place of SC4's built-in cS3DTextureBindingFactory service.
+				// This call overwrites the GZCOM service id that the cSTETerrainView3D class will load.
+				OverwriteMemoryUint32(0x75c176, GZSRVID_TerrainS3DTextureBindingFactoryProxy);
 				extendedTerrainWinManager.PostAppInit();
 			}
-			else
+			catch (const std::exception& e)
 			{
-				Logger::GetInstance().WriteLine(
+				Logger::GetInstance().WriteLineFormatted(
 					LogLevel::Error,
-					"Failed to install the cSTETerrainView3D patch.");
+					"Failed to install the cSTETerrainView3D texture loading patches. %s",
+					e.what());
 			}
 		}
 		else

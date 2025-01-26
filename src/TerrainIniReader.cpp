@@ -35,7 +35,7 @@
 namespace
 {
 	static constexpr std::string_view kMiscTextures = "MiscTextures";
-	static const std::array<std::pair<std::string, TerrainTexture>, 6> AdditionalMiscTextures =
+	static const std::array<std::pair<std::string, TerrainTexture>, 9> AdditionalMiscTextures =
 	{
 		std::make_pair("CutawayTop", TerrainTexture::CutawayTop),
 		std::make_pair("CutawayMiddle", TerrainTexture::CutawayMiddle),
@@ -43,6 +43,9 @@ namespace
 		std::make_pair("InshoreWater", TerrainTexture::InshoreWater),
 		std::make_pair("MidshoreWater", TerrainTexture::MidshoreWater),
 		std::make_pair("OutshoreWater", TerrainTexture::OutshoreWater),
+		std::make_pair("WaterBoxGradient", TerrainTexture::WaterBoxGradient),
+		std::make_pair("WaterColorDepthGradient", TerrainTexture::WaterColorDepthGradient),
+		std::make_pair("WaterGlareMask", TerrainTexture::WaterGlareMask),
 	};
 
 	// These values are taken from TGI values with a type of 0x7AB50E44 and a group of 0x891B0E1A.

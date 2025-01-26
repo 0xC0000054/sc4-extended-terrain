@@ -31,4 +31,16 @@ enum class TerrainTexture
 	// Our redirected textures convert the ID to the 0x00000ZTT format
 	// that the rest of the terrain textures use.
 	OutshoreWater,
+	// SC4 hard-codes this as 0xC9EFB727, there are no zoom levels.
+	// Our redirected textures convert the ID to the 0x000000TT format
+	// that the rest of the terrain textures use.
+	WaterBoxGradient,
+	// SC4 hard-codes this as 0x69EFB6F8, there are no zoom levels.
+	// Our redirected textures convert the ID to the 0x000000TT format
+	// that the rest of the terrain textures use.
+	WaterColorDepthGradient,
+	// SC4 hard-codes this as 0x69EFB7DA, there are no zoom levels.
+	// Our redirected textures convert the ID to the 0x000000TT format
+	// that the rest of the terrain textures use.
+	WaterGlareMask,
 };

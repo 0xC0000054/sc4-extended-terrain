@@ -42,6 +42,9 @@ Note that all override texture ids must use the 0x000000TT id format, like the o
 | InshoreWater | 0x00000Z14 | The inshore water texture. |
 | MidshoreWater | 0x00000Z13 | The midshore water texture. |
 | OutshoreWater | 0x0918730Z | The outshore water texture. |
+| WaterBoxGradient | 0xC9EFB727 | The outshore cutaway water gradient texture. Does not have different zoom levels. |
+| WaterColorDepthGradient | 0x69EFB6F8 | The inshore cutaway water gradient texture. Does not have different zoom levels |
+| WaterGlareMask | 0x69EFB7DA | A gray scale mask that is used for the sun reflections on the water. Does not have different zoom levels |
 
 #### Example INI Section
 
