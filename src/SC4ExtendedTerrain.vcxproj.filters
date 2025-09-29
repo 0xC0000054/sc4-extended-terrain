@@ -27,64 +27,34 @@
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseString.cpp">
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZBaseString.cpp">
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseVariant.cpp">
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZBaseVariant.cpp">
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZCOMDllDirector.cpp">
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZCOMDllDirector.cpp">
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZMessage2.cpp">
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZMessage2.cpp">
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZMessage2Standard.cpp">
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZMessage2Standard.cpp">
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\cS3DVector3.cpp">
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cS3DVector3.cpp">
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\cSCBaseProperty.cpp">
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cSCBaseProperty.cpp">
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\EASTLAllocatorSC4.cpp">
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\StringResourceManager.cpp">
       <Filter>Source Files\GZCOM</Filter>
-    </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\StringResourceManager.cpp">
-      <Filter>Source Files\GZCOM</Filter>
-    </ClCompile>
-    <ClCompile Include="..\vendor\EASTL\source\assert.cpp">
-      <Filter>Source Files\EASTL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\vendor\EASTL\source\atomic.cpp">
-      <Filter>Source Files\EASTL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\vendor\EASTL\source\fixed_pool.cpp">
-      <Filter>Source Files\EASTL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\vendor\EASTL\source\hashtable.cpp">
-      <Filter>Source Files\EASTL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\vendor\EASTL\source\intrusive_list.cpp">
-      <Filter>Source Files\EASTL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\vendor\EASTL\source\numeric_limits.cpp">
-      <Filter>Source Files\EASTL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\vendor\EASTL\source\red_black_tree.cpp">
-      <Filter>Source Files\EASTL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\vendor\EASTL\source\string.cpp">
-      <Filter>Source Files\EASTL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\vendor\EASTL\source\thread_support.cpp">
-      <Filter>Source Files\EASTL</Filter>
-    </ClCompile>
+    </ClCompile>    
     <ClCompile Include="ExtendedTerrainDllDirector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\SC4UI.cpp">
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\SC4UI.cpp">
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
     <ClCompile Include="SC4VersionDetection.cpp">
@@ -111,7 +81,7 @@
     <ClCompile Include="ExtendedTerrainWinManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseWinProc.cpp">
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZBaseWinProc.cpp">
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
     <ClCompile Include="RegionTerrainData.cpp">
@@ -123,10 +93,10 @@
     <ClCompile Include="TerrainS3DTextureBindingFactoryProxy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseSystemService.cpp">
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZBaseSystemService.cpp">
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseUnknown.cpp">
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZBaseUnknown.cpp">
       <Filter>Source Files\GZCOM</Filter>
     </ClCompile>
     <ClCompile Include="Settings.cpp">
@@ -158,22 +128,22 @@
     <ClInclude Include="version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\StringResourceKey.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\StringResourceKey.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\StringResourceManager.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\StringResourceManager.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZCheatCodeManager.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZCheatCodeManager.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cISC4City.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cISC4City.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cISC4App.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cISC4App.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinBtn.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZWinBtn.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
     <ClInclude Include="SC4VersionDetection.h">
@@ -182,13 +152,13 @@
     <ClInclude Include="FileSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZPersistDBSerialRecord.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZPersistDBSerialRecord.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZDBSerialRecordAsIGZFile.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZDBSerialRecordAsIGZFile.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZFile.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZFile.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
     <ClInclude Include="StringViewUtil.h">
@@ -209,22 +179,22 @@
     <ClInclude Include="ExtendedTerrainWinManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWin.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZWin.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinGen.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZWinGen.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinMgr.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZWinMgr.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinProc.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZWinProc.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
     <ClInclude Include="IExtendedTerrainWinManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinCombo.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZWinCombo.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
     <ClInclude Include="RegionTerrainData.h">
@@ -233,16 +203,16 @@
     <ClInclude Include="GZStringConvert.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cS3DTextureBinding.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cS3DTextureBinding.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIS3DTextureBindingFactory.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIS3DTextureBindingFactory.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cRZBaseSystemService.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cRZBaseSystemService.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cRZBaseUnknown.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cRZBaseUnknown.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
     <ClInclude Include="ITerrainS3DTextureBindingFactoryProxy.h">
@@ -275,10 +245,10 @@
     <ClInclude Include="TerrainTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZGimexFactory.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZGimexFactory.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZBuffer.h">
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZBuffer.h">
       <Filter>Header Files\GZCOM</Filter>
     </ClInclude>
     <ClInclude Include="TerrainGimexFactoryProxy.h">

@@ -11,28 +11,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\vendor\EASTL\source\assert.cpp" />
-    <ClCompile Include="..\vendor\EASTL\source\atomic.cpp" />
-    <ClCompile Include="..\vendor\EASTL\source\fixed_pool.cpp" />
-    <ClCompile Include="..\vendor\EASTL\source\hashtable.cpp" />
-    <ClCompile Include="..\vendor\EASTL\source\intrusive_list.cpp" />
-    <ClCompile Include="..\vendor\EASTL\source\numeric_limits.cpp" />
-    <ClCompile Include="..\vendor\EASTL\source\red_black_tree.cpp" />
-    <ClCompile Include="..\vendor\EASTL\source\string.cpp" />
-    <ClCompile Include="..\vendor\EASTL\source\thread_support.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseString.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseSystemService.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseUnknown.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseVariant.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZBaseWinProc.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZCOMDllDirector.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZMessage2.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\cRZMessage2Standard.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\cS3DVector3.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\cSCBaseProperty.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\EASTLAllocatorSC4.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\SC4UI.cpp" />
-    <ClCompile Include="..\vendor\gzcom-dll\src\StringResourceManager.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZBaseString.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZBaseSystemService.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZBaseUnknown.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZBaseVariant.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZBaseWinProc.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZCOMDllDirector.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZMessage2.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cRZMessage2Standard.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cS3DVector3.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cSCBaseProperty.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\SC4UI.cpp" />
+    <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\StringResourceManager.cpp" />
     <ClCompile Include="DebugUtil.cpp" />
     <ClCompile Include="ExtendedTerrainWin.cpp" />
     <ClCompile Include="ExtendedTerrainWinManager.cpp" />
@@ -55,26 +45,26 @@
     <ClCompile Include="TerrainTextureRedirectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZBuffer.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZCheatCodeManager.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZDBSerialRecordAsIGZFile.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZFile.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZGimexFactory.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZPersistDBSerialRecord.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWin.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinBtn.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinCombo.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinGen.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinMgr.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIGZWinProc.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cIS3DTextureBindingFactory.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cISC4App.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cISC4City.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cRZBaseSystemService.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cRZBaseUnknown.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\cS3DTextureBinding.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\StringResourceKey.h" />
-    <ClInclude Include="..\vendor\gzcom-dll\include\StringResourceManager.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZBuffer.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZCheatCodeManager.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZDBSerialRecordAsIGZFile.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZFile.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZGimexFactory.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZPersistDBSerialRecord.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZWin.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZWinBtn.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZWinCombo.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZWinGen.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZWinMgr.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIGZWinProc.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cIS3DTextureBindingFactory.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cISC4App.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cISC4City.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cRZBaseSystemService.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cRZBaseUnknown.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cS3DTextureBinding.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\StringResourceKey.h" />
+    <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\StringResourceManager.h" />
     <ClInclude Include="DebugUtil.h" />
     <ClInclude Include="ExtendedTerrainWin.h" />
     <ClInclude Include="ExtendedTerrainWinManager.h" />
@@ -153,7 +143,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\vendor\gzcom-dll\include;..\vendor\EASTL\include;..\vendor\EABase\include\Common;.\;.\public\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\gzcom-dll\gzcom-dll\include;..\vendor\EASTL\include;..\vendor\EABase\include\Common;.\;.\public\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -177,7 +167,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\vendor\gzcom-dll\include;..\vendor\EASTL\include;..\vendor\EABase\include\Common;.\;.\public\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\gzcom-dll\gzcom-dll\include;..\vendor\EASTL\include;..\vendor\EABase\include\Common;.\;.\public\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>

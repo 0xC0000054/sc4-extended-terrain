@@ -51,18 +51,25 @@ bool TerrainS3DTextureBindingFactoryProxy::QueryInterface(uint32_t riid, void** 
 
 		return true;
 	}
+	else if (riid == GZIID_cIGZSystemService)
+	{
+		*ppvObj = static_cast<cIGZSystemService*>(this);
+		AddRef();
 
-	return cRZBaseSystemService::QueryInterface(riid, ppvObj);
+		return true;
+	}
+
+	return cRZBaseUnknown::QueryInterface(riid, ppvObj);
 }
 
 uint32_t TerrainS3DTextureBindingFactoryProxy::AddRef()
 {
-	return cRZBaseSystemService::AddRef();
+	return cRZBaseUnknown::AddRef();
 }
 
 uint32_t TerrainS3DTextureBindingFactoryProxy::Release()
 {
-	return cRZBaseSystemService::Release();
+	return cRZBaseUnknown::Release();
 }
 
 bool TerrainS3DTextureBindingFactoryProxy::Init()

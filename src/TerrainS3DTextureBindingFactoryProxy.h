@@ -14,6 +14,7 @@
 #include "cIS3DTextureBindingFactory.h"
 #include "cRZAutoRefCount.h"
 #include "cRZBaseSystemService.h"
+#include "cRZBaseUnknown.h"
 #include "ISettings.h"
 #include "ITerrainS3DTextureBindingFactoryProxy.h"
 #include "ITerrainTextureRedirectManager.h"
@@ -21,6 +22,7 @@
 static constexpr uint32_t GZSRVID_TerrainS3DTextureBindingFactoryProxy = 0xF379B4BF;
 
 class TerrainS3DTextureBindingFactoryProxy :
+	public cRZBaseUnknown,
 	public cRZBaseSystemService,
 	public cIS3DTextureBindingFactory,
 	public ITerrainS3DTextureBindingFactoryProxy
@@ -34,11 +36,13 @@ public:
 
 	bool IsInitialized() const;
 
-	// cRZBaseSystemService
+	// cRZBaseUnknown
 
 	bool QueryInterface(uint32_t riid, void** ppvObj) override;
 	uint32_t AddRef() override;
 	uint32_t Release() override;
+
+	// cRZBaseSystemService
 
 	bool Init() override;
 	bool Shutdown() override;
