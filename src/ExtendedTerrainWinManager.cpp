@@ -39,6 +39,7 @@
 #include "TerrainIniReader.h"
 
 #include <array>
+#include <cstring>
 #include <functional>
 #include <string>
 #include <vector>
@@ -68,6 +69,54 @@ static SC4String* const spTerrainTexturePrefix = reinterpret_cast<SC4String*>(0x
 typedef bool(__cdecl* cSTETerrain_StaticShutdownFn)(void*);
 
 static const cSTETerrain_StaticShutdownFn cSTETerrain_StaticShutdown = reinterpret_cast<cSTETerrain_StaticShutdownFn>(0x74fc20);
+
+// cSTETerrainView3D keeps its own static data that is only built once per process by
+// cSTETerrainView3D::StaticInit (0x75c0c0), which cSTETerrainView3D::Init (0x75c420) calls
+// when the flag at 0xb4c740 is false. This includes:
+//
+// - The per-zoom texture family tables at 0xb4c670 (5 arrays indexed by texture id).
+//   They are filled by 0x7571d0 from the terrain's texture list (0xb4bcd8), but only when
+//   the per-zoom 'loaded' flag at 0xb4c668 is false.
+// - The outshore water (0x0918730Z) and the water gradient (0xC9EFB727, 0x69EFB6F8) bindings.
+//
+// cSTETerrain::StaticShutdown does not touch any of this. After the terrain prefix is
+// changed the terrain re-reads terrain.ini and adds the new textures to its texture list,
+// but the 'loaded' flags are still set, so the families of the new textures are never
+// created. cSTETerrain::DecideSurfaceCover and cSTETerrain::GetTextureFamilyMember then
+// read a null family pointer and the game crashes (0x00748605 and 0x00742fb7).
+//
+// cSTETerrainView3D::StaticShutdown (0x758bc0) unloads the families (0x756ca0), frees the
+// family tables, releases the water bindings and clears the 0xb4c740 flag, so the next
+// cSTETerrainView3D::Init rebuilds everything for the new terrain prefix.
+typedef bool(__cdecl* cSTETerrainView3D_StaticShutdownFn)(void*);
+
+static const cSTETerrainView3D_StaticShutdownFn cSTETerrainView3D_StaticShutdown = reinterpret_cast<cSTETerrainView3D_StaticShutdownFn>(0x758bc0);
+
+// The first 16 bytes of cSTETerrainView3D::StaticShutdown in SC4 version 641.
+static constexpr std::array<uint8_t, 16> kTerrainView3DStaticShutdownSignature =
+{
+	0xA0, 0x40, 0xC7, 0xB4, 0x00, 0x53, 0x33, 0xDB, 0x3A, 0xC3, 0x0F, 0x84, 0x60, 0x01, 0x00, 0x00
+};
+
+namespace
+{
+	void ShutdownTerrainView3DStaticData()
+	{
+		const uint8_t* const functionStart = reinterpret_cast<const uint8_t*>(0x758bc0);
+
+		if (memcmp(functionStart, kTerrainView3DStaticShutdownSignature.data(), kTerrainView3DStaticShutdownSignature.size()) == 0)
+		{
+			cSTETerrainView3D_StaticShutdown(nullptr);
+		}
+		else
+		{
+			Logger::GetInstance().WriteLine(
+				LogLevel::Error,
+				"cSTETerrainView3D::StaticShutdown does not match the expected code, the terrain view data was not reset."
+				" Restart the game before loading a city with the new terrain type.");
+		}
+	}
+}
 
 
 ExtendedTerrainWinManager::ExtendedTerrainWinManager(ITerrainTextureRedirectManager& textureRedirectManager)
@@ -364,6 +413,10 @@ void ExtendedTerrainWinManager::UpdateTerrainPrefixString(bool saveToRegionFolde
 			// Call the cSTETerrain::StaticShutdown function to make it think SC4 has restarted.
 			// This makes the game parse terrain.ini again.
 			cSTETerrain_StaticShutdown(nullptr);
+			// Also reset the terrain view's static data, otherwise it keeps the texture families
+			// and water textures of the previous terrain type and the game crashes when it
+			// draws a texture that the previous terrain type did not use.
+			ShutdownTerrainView3DStaticData();
 		}
 
 		if (saveToRegionFolder)

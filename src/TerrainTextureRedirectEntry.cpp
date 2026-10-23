@@ -22,7 +22,7 @@
 #include "TerrainTextureRedirectEntry.h"
 
 TerrainTextureRedirectEntry::TerrainTextureRedirectEntry()
-	: terrainName(terrainName),
+	: terrainName(),
 	  cutawayTopZoom0TextureID(0),
 	  cutawayMiddleZoom0TextureID(0),
 	  cutawayBottomZoom0TextureID(0),
@@ -138,7 +138,7 @@ void TerrainTextureRedirectEntry::SetRedirectedTextureID(TerrainTexture texture,
 		waterColorDepthGradientTextureID = value;
 		break;
 	case TerrainTexture::WaterGlareMask:
-		waterBoxGradientTextureID = value;
+		waterGlareMaskTextureID = value;
 		break;
 	}
 }
