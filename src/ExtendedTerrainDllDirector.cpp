@@ -37,6 +37,7 @@
 
 #include "ExtendedTerrainWinManager.h"
 #include "FileSystem.h"
+#include "FloraBlastFix.h"
 #include "Logger.h"
 #include "SC4VersionDetection.h"
 #include "Settings.h"
@@ -146,6 +147,8 @@ public:
 				// in-place of SC4's built-in cS3DTextureBindingFactory service.
 				// This call overwrites the GZCOM service id that the cSTETerrainView3D class will load.
 				OverwriteMemoryUint32(0x75c176, GZSRVID_TerrainS3DTextureBindingFactoryProxy);
+				// Let the 'Flora blast' cheat plant flora types that have natural seeding disabled.
+				FloraBlastFix::Install();
 				extendedTerrainWinManager.PostAppInit();
 			}
 			catch (const std::exception& e)

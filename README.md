@@ -23,6 +23,7 @@ It does not add any terrain types to the game by itself.
 * Texture offsets, so several terrain mods can use the same Maxis texture IDs.
 * Per-terrain flora: each terrain type can use its own tree controller.
 * Per-terrain Terrain Properties and Flora Tuning exemplars.
+* _Flora blast_ cheat support for flora types that have natural seeding disabled, such as seasonal trees.
 
 When the terrain type changes, the terrain and terrain view data are reset and rebuilt for the new terrain type
 when the next city is loaded.
@@ -224,6 +225,16 @@ unchanged and an error is written to the log.
 | 0x004D8BEF | cSC4ViewInputControlTerrainScrubber::ReadTuningParameters | Terrain Properties |
 | 0x005E3518 | Function at 0x005E3400 | Terrain Properties |
 | 0x006B0122 | cSC4FloraSimulator::ReadTuning | Flora Tuning |
+
+## Flora Blast Cheat
+
+The _Flora blast_ cheat plants each tree through the game's seed routine, which accepts a seed only when
+`(score - minScore) * random(0..1) < (1 - minScore) * seedSuccessFactor`, where `minScore` and `seedSuccessFactor`
+are elements 8 and 9 of the flora exemplar property 0x083DC35B. Flora types that disable natural seeding with a
+seed success factor of 0, such as seasonal tree controllers, can never pass this test.
+
+For flora types with a seed success factor of 0 or less, the plugin makes the cheat apply the placement and
+minimum propagation score tests without the random draw. Other flora types, and natural seeding, are not changed.
 
 ## ExtendedTerrain INI
 
