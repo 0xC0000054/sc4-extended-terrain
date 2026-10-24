@@ -31,6 +31,8 @@
 #include "cIGZWin.h"
 #include "cIGZWinCombo.h"
 #include "cISC4App.h"
+#include "cISC4City.h"
+#include "cISC4FloraSimulator.h"
 #include "cRZAutoRefCount.h"
 #include "GZCLSIDDefs.h"
 #include "GZServPtrs.h"
@@ -45,6 +47,9 @@
 #include <vector>
 
 static constexpr uint32_t kSC4MessagePreCityInit = 0x26D31EC0;
+static constexpr uint32_t kSC4MessagePostCityInit = 0x26D31EC1;
+// Posted by cSC4FloraSimulator after it has read the flora exemplars and built the flora records.
+static constexpr uint32_t kSC4MessageFloraDataLoaded = 0x87A6277F;
 static constexpr uint32_t kSC4MessagePostCityShutdown = 0x26D31EC3;
 static constexpr uint32_t kSC4MessagePostRegionInit = 0xCBB5BB45;
 static constexpr uint32_t kSC4MessagePreRegionShutdown = 0x8BB5BB46;
@@ -55,8 +60,10 @@ static constexpr uint32_t kToggleExtendedTerrainDialogCheatID = 0xDD03DB81;
 static const uint32_t kGZWin_WinSC4App = 0x6104489A;
 static const uint32_t kGZWin_SC4WinRegionScreen = 0xEA659793;
 
-static constexpr std::array<uint32_t, 3> RequiredNotifications =
+static constexpr std::array<uint32_t, 5> RequiredNotifications =
 {
+	kSC4MessagePostCityInit,
+	kSC4MessageFloraDataLoaded,
 	kSC4MessagePostCityShutdown,
 	kSC4MessagePostRegionInit,
 	kSC4MessagePreRegionShutdown
@@ -171,7 +178,7 @@ bool ExtendedTerrainWinManager::PostAppInit()
 {
 	if (!initialized)
 	{
-		TerrainIniReader::Parse(terrainNames, textureRedirectManager);
+		TerrainIniReader::Parse(terrainNames, textureRedirectManager, floraBiomeManager);
 
 		cIGZMessageServer2Ptr pMS2;
 
@@ -223,6 +230,12 @@ bool ExtendedTerrainWinManager::DoMessage(cIGZMessage2* pMessage)
 	case kSC4MessagePreCityInit:
 		PreCityInit();
 		break;
+	case kSC4MessagePostCityInit:
+		PostCityInit();
+		break;
+	case kSC4MessageFloraDataLoaded:
+		FloraDataLoaded();
+		break;
 	case kSC4MessagePostCityShutdown:
 		PostCityShutdown();
 		break;
@@ -269,6 +282,37 @@ void ExtendedTerrainWinManager::PreCityInit()
 	if (pMS2)
 	{
 		pMS2->RemoveNotification(this, kSC4MessagePreCityInit);
+	}
+}
+
+void ExtendedTerrainWinManager::PostCityInit()
+{
+	ApplyFloraBiome();
+}
+
+void ExtendedTerrainWinManager::FloraDataLoaded()
+{
+	// The flora exemplars were (re)loaded, the new records have the exemplar flag values.
+	ApplyFloraBiome();
+}
+
+void ExtendedTerrainWinManager::ApplyFloraBiome()
+{
+	if (!floraBiomeManager.HasBiomeFamilies())
+	{
+		return;
+	}
+
+	cISC4AppPtr pSC4App;
+
+	if (pSC4App)
+	{
+		cISC4City* pCity = pSC4App->GetCity();
+
+		if (pCity)
+		{
+			floraBiomeManager.Apply(pCity->GetFloraSimulator());
+		}
 	}
 }
 
@@ -400,6 +444,7 @@ void ExtendedTerrainWinManager::ToggleExtendedTerrainWindowVisibility()
 void ExtendedTerrainWinManager::UpdateTerrainPrefixString(bool saveToRegionFolder)
 {
 	textureRedirectManager.SetTerrainPrefix(currentTerrainPrefix);
+	floraBiomeManager.SetTerrainPrefix(currentTerrainPrefix);
 
 	cIGZString* const texturePrefixAsGZString = spTerrainTexturePrefix->AsIGZString();
 

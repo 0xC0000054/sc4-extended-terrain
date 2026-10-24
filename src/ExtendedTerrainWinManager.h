@@ -24,6 +24,7 @@
 #include "IExtendedTerrainWinManager.h"
 #include "ITerrainTextureRedirectManager.h"
 #include "ExtendedTerrainWin.h"
+#include "FloraBiomeManager.h"
 #include "TerrainNameCollection.h"
 
 class cIGZMessage2Standard;
@@ -59,6 +60,9 @@ private:
 	// Private members
 
 	void PreCityInit();
+	void PostCityInit();
+	void FloraDataLoaded();
+	void ApplyFloraBiome();
 	void PostCityShutdown();
 	void PostRegionInit();
 	void PreRegionShutdown();
@@ -74,6 +78,7 @@ private:
 	cRZBaseString currentTerrainPrefix;
 	cIGZWin* pRegionScreen;
 	ITerrainTextureRedirectManager& textureRedirectManager;
+	FloraBiomeManager floraBiomeManager;
 	bool initialized;
 	bool firstCityLoaded;
 	bool exitedCity;

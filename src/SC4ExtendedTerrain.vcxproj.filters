@@ -72,6 +72,9 @@
     <ClCompile Include="GZFileStreamBufAdapter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FloraBiomeManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ExtendedTerrainWin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -168,6 +171,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GZFileStreamBufAdapter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FloraBiomeManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExtendedTerrainWin.h">
