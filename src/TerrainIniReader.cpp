@@ -372,6 +372,47 @@ namespace
 		}
 	}
 
+	void ReadTuningExemplarInstances(
+		const boost::property_tree::ptree& terrainIni,
+		const std::vector<std::string>& terrainPrefixes,
+		const char* sectionName,
+		TuningExemplarManager::ExemplarKind kind,
+		TuningExemplarManager& tuningExemplarManager)
+	{
+		Logger& logger = Logger::GetInstance();
+
+		auto optionalSection = terrainIni.get_child_optional(sectionName);
+
+		if (optionalSection.has_value())
+		{
+			auto& section = optionalSection.get();
+
+			for (auto& prefix : terrainPrefixes)
+			{
+				auto optionalValue = section.get_optional<std::string>(prefix);
+
+				if (optionalValue.has_value())
+				{
+					uint32_t instanceID = 0;
+
+					if (StringViewUtil::TryParse(optionalValue.value(), instanceID))
+					{
+						tuningExemplarManager.AddExemplarInstance(kind, prefix, instanceID);
+					}
+					else
+					{
+						logger.WriteLineFormatted(
+							LogLevel::Error,
+							"Invalid %s instance ID in %s: %s.",
+							prefix.c_str(),
+							sectionName,
+							optionalValue.value().c_str());
+					}
+				}
+			}
+		}
+	}
+
 	void InitializeTerrainTextureRedirects(
 		const boost::property_tree::ptree& terrainIni,
 		const std::vector<std::string>& terrainPrefixes,
@@ -385,7 +426,8 @@ namespace
 void TerrainIniReader::Parse(
 	TerrainNameCollection& terrainNames,
 	ITerrainTextureRedirectManager& textureRedirectManager,
-	FloraBiomeManager& floraBiomeManager)
+	FloraBiomeManager& floraBiomeManager,
+	TuningExemplarManager& tuningExemplarManager)
 {
 	Logger& logger = Logger::GetInstance();
 
@@ -426,6 +468,18 @@ void TerrainIniReader::Parse(
 			InitializeTerrainNames(tree, terrainPrefixes, terrainNames);
 			InitializeTerrainTextureRedirects(tree, terrainPrefixes, textureRedirectManager);
 			ReadFloraBiomeFamilies(tree, terrainPrefixes, floraBiomeManager);
+			ReadTuningExemplarInstances(
+				tree,
+				terrainPrefixes,
+				"TerrainPropertiesExemplars",
+				TuningExemplarManager::ExemplarKind::TerrainProperties,
+				tuningExemplarManager);
+			ReadTuningExemplarInstances(
+				tree,
+				terrainPrefixes,
+				"FloraTuningExemplars",
+				TuningExemplarManager::ExemplarKind::FloraTuning,
+				tuningExemplarManager);
 		}
 		else
 		{

@@ -178,7 +178,7 @@ bool ExtendedTerrainWinManager::PostAppInit()
 {
 	if (!initialized)
 	{
-		TerrainIniReader::Parse(terrainNames, textureRedirectManager, floraBiomeManager);
+		TerrainIniReader::Parse(terrainNames, textureRedirectManager, floraBiomeManager, tuningExemplarManager);
 
 		cIGZMessageServer2Ptr pMS2;
 
@@ -445,6 +445,9 @@ void ExtendedTerrainWinManager::UpdateTerrainPrefixString(bool saveToRegionFolde
 {
 	textureRedirectManager.SetTerrainPrefix(currentTerrainPrefix);
 	floraBiomeManager.SetTerrainPrefix(currentTerrainPrefix);
+	// Select the biome's Terrain Properties and Flora Tuning exemplars before the
+	// static shutdown below, the game reads them again when the next city is loaded.
+	tuningExemplarManager.SetTerrainPrefix(currentTerrainPrefix);
 
 	cIGZString* const texturePrefixAsGZString = spTerrainTexturePrefix->AsIGZString();
 

@@ -25,6 +25,7 @@
 #include "ITerrainTextureRedirectManager.h"
 #include "ExtendedTerrainWin.h"
 #include "FloraBiomeManager.h"
+#include "TuningExemplarManager.h"
 #include "TerrainNameCollection.h"
 
 class cIGZMessage2Standard;
@@ -79,6 +80,7 @@ private:
 	cIGZWin* pRegionScreen;
 	ITerrainTextureRedirectManager& textureRedirectManager;
 	FloraBiomeManager floraBiomeManager;
+	TuningExemplarManager tuningExemplarManager;
 	bool initialized;
 	bool firstCityLoaded;
 	bool exitedCity;

@@ -23,12 +23,14 @@
 #include "TerrainNameCollection.h"
 #include "ITerrainTextureRedirectManager.h"
 #include "FloraBiomeManager.h"
+#include "TuningExemplarManager.h"
 
 namespace TerrainIniReader
 {
 	void Parse(
 		TerrainNameCollection& terrainNames,
 		ITerrainTextureRedirectManager& textureRedirectManager,
-		FloraBiomeManager& floraBiomeManager);
+		FloraBiomeManager& floraBiomeManager,
+		TuningExemplarManager& tuningExemplarManager);
 };
 
