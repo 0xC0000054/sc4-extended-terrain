@@ -3,7 +3,6 @@
   "dependencies": [
     "boost-algorithm",
     "boost-endian",
-    "boost-property-tree",
     "frozen",
     "wil"
   ]

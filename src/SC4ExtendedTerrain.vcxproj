@@ -23,22 +23,24 @@
     <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\cSCBaseProperty.cpp" />
     <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\SC4UI.cpp" />
     <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\StringResourceManager.cpp" />
-    <ClCompile Include="DebugUtil.cpp" />
+    <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\DebugUtil.cpp" />
+    <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\FileSystem.cpp" />
+    <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\GZFileStreamBufAdapter.cpp" />
+    <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\Logger.cpp" />
+    <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\ResourceUtil.cpp" />
+    <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\SC4NotificationDialog.cpp" />
+    <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\SC4VersionDetection.cpp" />
+    <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\StringConversion.cpp" />
+    <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\StringViewUtil.cpp" />
+    <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\Utf8TextOFStream.cpp" />
     <ClCompile Include="ExtendedTerrainWin.cpp" />
     <ClCompile Include="FloraBlastFix.cpp" />
     <ClCompile Include="FloraBiomeManager.cpp" />
     <ClCompile Include="TuningExemplarManager.cpp" />
     <ClCompile Include="ExtendedTerrainWinManager.cpp" />
-    <ClCompile Include="FileSystem.cpp" />
-    <ClCompile Include="GZFileStreamBufAdapter.cpp" />
-    <ClCompile Include="GZStringConvert.cpp" />
-    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="ExtendedTerrainDllDirector.cpp" />
     <ClCompile Include="RegionTerrainData.cpp" />
-    <ClCompile Include="SC4NotificationDialog.cpp" />
-    <ClCompile Include="SC4VersionDetection.cpp" />
     <ClCompile Include="Settings.cpp" />
-    <ClCompile Include="StringViewUtil.cpp" />
     <ClCompile Include="TerrainGimexFactoryProxy.cpp" />
     <ClCompile Include="TerrainIniReader.cpp" />
     <ClCompile Include="TerrainNameCollection.cpp" />
@@ -68,25 +70,27 @@
     <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\cS3DTextureBinding.h" />
     <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\StringResourceKey.h" />
     <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\StringResourceManager.h" />
-    <ClInclude Include="DebugUtil.h" />
+    <ClInclude Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\include\DebugUtil.h" />
+    <ClInclude Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\include\FileSystem.h" />
+    <ClInclude Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\include\GZFileStreamBufAdapter.h" />
+    <ClInclude Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\include\IniReader.h" />
+    <ClInclude Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\include\Logger.h" />
+    <ClInclude Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\include\ResourceUtil.h" />
+    <ClInclude Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\include\SC4NotificationDialog.h" />
+    <ClInclude Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\include\SC4VersionDetection.h" />
+    <ClInclude Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\include\StringConversion.h" />
+    <ClInclude Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\include\StringViewUtil.h" />
     <ClInclude Include="ExtendedTerrainWin.h" />
     <ClInclude Include="FloraBlastFix.h" />
     <ClInclude Include="FloraBiomeManager.h" />
     <ClInclude Include="TuningExemplarManager.h" />
     <ClInclude Include="ExtendedTerrainWinManager.h" />
-    <ClInclude Include="FileSystem.h" />
-    <ClInclude Include="GZFileStreamBufAdapter.h" />
-    <ClInclude Include="GZStringConvert.h" />
     <ClInclude Include="IExtendedTerrainWinManager.h" />
     <ClInclude Include="ISettings.h" />
     <ClInclude Include="ITerrainS3DTextureBindingFactoryProxy.h" />
     <ClInclude Include="ITerrainTextureRedirectManager.h" />
-    <ClInclude Include="Logger.h" />
     <ClInclude Include="RegionTerrainData.h" />
-    <ClInclude Include="SC4NotificationDialog.h" />
-    <ClInclude Include="SC4VersionDetection.h" />
     <ClInclude Include="Settings.h" />
-    <ClInclude Include="StringViewUtil.h" />
     <ClInclude Include="TerrainGimexFactoryProxy.h" />
     <ClInclude Include="TerrainIniReader.h" />
     <ClInclude Include="TerrainNameCollection.h" />
@@ -149,7 +153,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\vendor\gzcom-dll\gzcom-dll\include;..\vendor\EASTL\include;..\vendor\EABase\include\Common;.\;.\public\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\gzcom-dll\gzcom-dll\include;..\vendor\sc4-dll-utilities\sc4-dll-utilities\include;.\;.\public\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -173,7 +177,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\vendor\gzcom-dll\gzcom-dll\include;..\vendor\EASTL\include;..\vendor\EABase\include\Common;.\;.\public\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\gzcom-dll\gzcom-dll\include;..\vendor\sc4-dll-utilities\sc4-dll-utilities\include;.\;.\public\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>

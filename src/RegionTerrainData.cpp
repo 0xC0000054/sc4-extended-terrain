@@ -23,10 +23,11 @@
 #include "boost/endian.hpp"
 #include "cISC4App.h"
 #include "cISC4Region.h"
-#include "GZStringConvert.h"
+#include "StringConversion.h"
 #include "SC4String.h"
 
 #include <array>
+#include <filesystem>
 #include <fstream>
 
 using namespace std::string_view_literals;
@@ -44,7 +45,7 @@ namespace
 
 	std::filesystem::path GetRegionRootFolder(cISC4App& sc4App)
 	{
-		static std::filesystem::path path(GZStringConvert::ToFileSystemPath(GetRegionRootFolderCore(sc4App)));
+		static std::filesystem::path path(StringConversion::ToUtf16(GetRegionRootFolderCore(sc4App)));
 
 		return path;
 	}
@@ -53,7 +54,7 @@ namespace
 	{
 		std::filesystem::path path = GetRegionRootFolder(sc4App);
 
-		path /= GZStringConvert::ToFileSystemPath(*sc4App.GetRegion()->GetDirectoryName());
+		path /= StringConversion::ToUtf16(*sc4App.GetRegion()->GetDirectoryName());
 		path /= L"TerrainType.bin"sv;
 
 		return path;

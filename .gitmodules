@@ -1,3 +1,6 @@
 [submodule "vendor/gzcom-dll"]
 	path = vendor/gzcom-dll
 	url = https://github.com/nsgomez/gzcom-dll.git
+[submodule "vendor/sc4-dll-utilities"]
+	path = vendor/sc4-dll-utilities
+	url = https://github.com/0xC0000054/sc4-dll-utilities

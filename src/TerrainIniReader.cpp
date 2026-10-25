@@ -22,19 +22,9 @@
 #include "TerrainIniReader.h"
 #include "DebugUtil.h"
 #include "Logger.h"
-#include "boost/property_tree/ptree.hpp"
-#include "boost/property_tree/ini_parser.hpp"
 #include "cGZPersistResourceKey.h"
-#include "cIGZCOM.h"
-#include "cIGZPersistDBRecord.h"
-#include "cIGZPersistDBSerialRecord.h"
-#include "cIGZDBSerialRecordAsIGZFile.h"
-#include "cIGZPersistResourceManager.h"
-#include "GZFileStreamBufAdapter.h"
-#include "GZServPtrs.h"
-#include "cRZAutoRefCount.h"
-#include "cRZCOMDllDirector.h"
 #include "frozen/unordered_set.h"
+#include "IniReader.h"
 #include "StringViewUtil.h"
 
 #include <array>
@@ -107,88 +97,28 @@ namespace
 		0xEA05D000,
 	};
 
-	std::unique_ptr<GZFileStreamBufAdapter> OpenDBPFRecordAsStreamBuf(const cGZPersistResourceKey& key)
-	{
-		std::unique_ptr<GZFileStreamBufAdapter> adapter;
-
-		cIGZCOM* const pCOM = RZGetFramework()->GetCOMObject();
-		cIGZPersistResourceManagerPtr pResourceManager;
-
-		if (pCOM && pResourceManager)
-		{
-			cRZAutoRefCount<cIGZPersistDBRecord> pRecord;
-
-			if (pResourceManager->OpenDBRecord(key, pRecord.AsPPObj(), false))
-			{
-				cRZAutoRefCount<cIGZPersistDBSerialRecord> pSerialRecord;
-
-				if (pRecord->QueryInterface(GZIID_cIGZPersistDBSerialRecord, pSerialRecord.AsPPVoid()))
-				{
-					cRZAutoRefCount<cIGZDBSerialRecordAsIGZFile> pAsIGZFile;
-
-					if (pCOM->GetClassObject(
-						GZCLSID_cIGZDBSerialRecordAsIGZFile,
-						GZIID_cIGZDBSerialRecordAsIGZFile,
-						pAsIGZFile.AsPPVoid()))
-					{
-						if (pAsIGZFile->SetDBSerialRecord(pSerialRecord))
-						{
-							cRZAutoRefCount<cIGZFile> pFile;
-
-							if (pAsIGZFile->QueryInterface(GZIID_cIGZFile, pFile.AsPPVoid()))
-							{
-								adapter = std::make_unique<GZFileStreamBufAdapter>(std::move(pFile));
-							}
-						}
-					}
-				}
-			}
-		}
-
-		return adapter;
-	}
-
-	boost::property_tree::ptree LoadTerrainIni()
-	{
-		boost::property_tree::ptree tree;
-
-		// The TGI of the Terrain.ini entry.
-		const cGZPersistResourceKey key(0x00000000, 0x8A5971C5, 0xAA597172);
-
-		std::unique_ptr<GZFileStreamBufAdapter> adapter = OpenDBPFRecordAsStreamBuf(key);
-
-		if (adapter)
-		{
-			std::istream file(adapter.get());
-
-			boost::property_tree::ini_parser::read_ini(file, tree);
-		}
-
-		return tree;
-	}
-
 	void InitializeTerrainNames(
-		const boost::property_tree::ptree& terrainIni,
+		const IniReader& terrainIni,
 		const std::vector<std::string>& terrainPrefixes,
 		TerrainNameCollection& terrainNames)
 	{
 		terrainNames.clear();
 
-		auto optionalDisplayNames = terrainIni.get_child_optional("DisplayNames");
+		auto optionalDisplayNames = terrainIni.get_section_optional("DisplayNames");
 
 		if (optionalDisplayNames.has_value())
 		{
-			auto& displayNames = optionalDisplayNames.get();
+			auto& displayNames = optionalDisplayNames.value();
 
 			if (!displayNames.empty())
 			{
 				for (auto& prefix : terrainPrefixes)
 				{
-					auto optionalDisplayName = displayNames.get_optional<std::string>(prefix);
+					auto optionalDisplayName = displayNames.get_value_optional(prefix);
 
 					if (optionalDisplayName)
 					{
-						terrainNames.emplace_back(prefix, optionalDisplayName.get());
+						terrainNames.emplace_back(prefix, optionalDisplayName.value());
 					}
 					else
 					{
@@ -208,23 +138,23 @@ namespace
 	}
 
 	void ReadTerrainTextureOffsets(
-		const boost::property_tree::ptree& terrainIni,
+		const IniReader& terrainIni,
 		const std::vector<std::string>& terrainPrefixes,
 		ITerrainTextureRedirectManager& redirectManager)
 	{
 		Logger& logger = Logger::GetInstance();
 
-		auto optionalTextureOffsets = terrainIni.get_child_optional("TextureOffsets");
+		auto optionalTextureOffsets = terrainIni.get_section_optional("TextureOffsets");
 
 		if (optionalTextureOffsets.has_value())
 		{
-			auto& textureOffsetsSection = optionalTextureOffsets.get();
+			auto& textureOffsetsSection = optionalTextureOffsets.value();
 
 			if (!textureOffsetsSection.empty())
 			{
 				for (auto& prefix : terrainPrefixes)
 				{
-					auto optionalTextureOffset = textureOffsetsSection.get_optional<std::string>(prefix);
+					auto optionalTextureOffset = textureOffsetsSection.get_value_optional(prefix);
 
 					if (optionalTextureOffset.has_value())
 					{
@@ -285,7 +215,7 @@ namespace
 	}
 
 	void ReadAdditionalMiscTerrainTextures(
-		const boost::property_tree::ptree& terrainIni,
+		const IniReader& terrainIni,
 		const std::vector<std::string>& terrainPrefixes,
 		ITerrainTextureRedirectManager& redirectManager)
 	{
@@ -295,11 +225,13 @@ namespace
 		{
 			const std::string sectionName = std::string(prefix).append(kMiscTextures);
 
-			const auto& miscTextureSection = terrainIni.get_child(sectionName);
+			const auto& optionalMiscTextures = terrainIni.get_section_optional(sectionName);
 
 			// The default MiscTexture format only has 3 fields.
-			if (miscTextureSection.size() > 3)
+			if (optionalMiscTextures.has_value())
 			{
+				const auto& miscTextureSection = optionalMiscTextures.value();
+
 				for (const auto& additionalTextureItem : AdditionalMiscTextures)
 				{
 					auto sectionField = miscTextureSection.find(additionalTextureItem.first);
@@ -308,7 +240,7 @@ namespace
 					{
 						uint32_t textureID = 0;
 
-						if (StringViewUtil::TryParse(sectionField->second.data(), textureID))
+						if (StringViewUtil::TryParse(sectionField->second, textureID))
 						{
 							// The upper 20 bits of the texture id must be 0 for the texture offset system to work.
 							// See ReadTerrainTextureOffsets for a description of the format.
@@ -335,21 +267,21 @@ namespace
 	}
 
 	void ReadFloraBiomeFamilies(
-		const boost::property_tree::ptree& terrainIni,
+		const IniReader& terrainIni,
 		const std::vector<std::string>& terrainPrefixes,
 		FloraBiomeManager& floraBiomeManager)
 	{
 		Logger& logger = Logger::GetInstance();
 
-		auto optionalSection = terrainIni.get_child_optional("FloraBiomeFamilies");
+		auto optionalSection = terrainIni.get_section_optional("FloraBiomeFamilies");
 
 		if (optionalSection.has_value())
 		{
-			auto& section = optionalSection.get();
+			auto& section = optionalSection.value();
 
 			for (auto& prefix : terrainPrefixes)
 			{
-				auto optionalValue = section.get_optional<std::string>(prefix);
+				auto optionalValue = section.get_value_optional(prefix);
 
 				if (optionalValue.has_value())
 				{
@@ -373,7 +305,7 @@ namespace
 	}
 
 	void ReadTuningExemplarInstances(
-		const boost::property_tree::ptree& terrainIni,
+		const IniReader& terrainIni,
 		const std::vector<std::string>& terrainPrefixes,
 		const char* sectionName,
 		TuningExemplarManager::ExemplarKind kind,
@@ -381,15 +313,15 @@ namespace
 	{
 		Logger& logger = Logger::GetInstance();
 
-		auto optionalSection = terrainIni.get_child_optional(sectionName);
+		auto optionalSection = terrainIni.get_section_optional(sectionName);
 
 		if (optionalSection.has_value())
 		{
-			auto& section = optionalSection.get();
+			auto& section = optionalSection.value();
 
 			for (auto& prefix : terrainPrefixes)
 			{
-				auto optionalValue = section.get_optional<std::string>(prefix);
+				auto optionalValue = section.get_value_optional(prefix);
 
 				if (optionalValue.has_value())
 				{
@@ -414,7 +346,7 @@ namespace
 	}
 
 	void InitializeTerrainTextureRedirects(
-		const boost::property_tree::ptree& terrainIni,
+		const IniReader& terrainIni,
 		const std::vector<std::string>& terrainPrefixes,
 		ITerrainTextureRedirectManager& redirectManager)
 	{
@@ -435,13 +367,17 @@ void TerrainIniReader::Parse(
 
 	try
 	{
-		boost::property_tree::ptree tree = LoadTerrainIni();
+		// The TGI of the Terrain.ini entry.
 
-		if (!tree.empty())
+		const cGZPersistResourceKey key(0x00000000, 0x8A5971C5, 0xAA597172);
+
+		IniReader iniReader(key);
+
+		if (!iniReader.empty())
 		{
 			std::vector<std::string> terrainPrefixes;
 
-			for (const auto& section : tree)
+			for (const auto& section : iniReader)
 			{
 				const std::string& sectionName = section.first;
 
@@ -455,7 +391,7 @@ void TerrainIniReader::Parse(
 
 					const std::string textureMapTableName = prefix + "TextureMapTable";
 
-					const auto textureMapTable = tree.get_child_optional(textureMapTableName);
+					const auto textureMapTable = iniReader.get_section_optional(textureMapTableName);
 
 					// Skip any MiscTexture sections that don't have a TextureMapTable.
 					if (textureMapTable.has_value())
@@ -465,17 +401,17 @@ void TerrainIniReader::Parse(
 				}
 			}
 
-			InitializeTerrainNames(tree, terrainPrefixes, terrainNames);
-			InitializeTerrainTextureRedirects(tree, terrainPrefixes, textureRedirectManager);
-			ReadFloraBiomeFamilies(tree, terrainPrefixes, floraBiomeManager);
+			InitializeTerrainNames(iniReader, terrainPrefixes, terrainNames);
+			InitializeTerrainTextureRedirects(iniReader, terrainPrefixes, textureRedirectManager);
+			ReadFloraBiomeFamilies(iniReader, terrainPrefixes, floraBiomeManager);
 			ReadTuningExemplarInstances(
-				tree,
+				iniReader,
 				terrainPrefixes,
 				"TerrainPropertiesExemplars",
 				TuningExemplarManager::ExemplarKind::TerrainProperties,
 				tuningExemplarManager);
 			ReadTuningExemplarInstances(
-				tree,
+				iniReader,
 				terrainPrefixes,
 				"FloraTuningExemplars",
 				TuningExemplarManager::ExemplarKind::FloraTuning,

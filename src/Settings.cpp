@@ -22,8 +22,7 @@
 #include "Settings.h"
 #include "FileSystem.h"
 #include "Logger.h"
-#include "boost/property_tree/ptree.hpp"
-#include "boost/property_tree/ini_parser.hpp"
+#include "IniReader.h"
 #include <fstream>
 
 Settings::Settings()
@@ -48,15 +47,16 @@ void Settings::Load()
 
 	try
 	{
-		std::ifstream stream(FileSystem::GetConfigFilePath(), std::ifstream::in);
+		std::ifstream stream(FileSystem::GetDllIniFilePath(), std::ifstream::in);
 
 		if (stream)
 		{
-			boost::property_tree::ptree tree;
-			boost::property_tree::ini_parser::read_ini(stream, tree);
+			IniReader iniReader(stream);
 
-			logTextureIDs = tree.get<bool>("ExtendedTerrain.LogTextureIDs");
-			logTextureLoadErrors = tree.get<bool>("ExtendedTerrain.LogTextureLoadErrors");
+			const IniSection& extendedTerrainSection = iniReader.get_section("ExtendedTerrain");
+
+			logTextureIDs = extendedTerrainSection.get_converted_value<bool>("LogTextureIDs");
+			logTextureLoadErrors = extendedTerrainSection.get_converted_value<bool>("LogTextureLoadErrors");
 		}
 		else
 		{

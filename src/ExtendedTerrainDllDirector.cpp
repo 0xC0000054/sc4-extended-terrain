@@ -79,10 +79,10 @@ public:
 		  textureRedirectManager(),
 		  extendedTerrainWinManager(textureRedirectManager)
 	{
-		std::filesystem::path logFilePath = FileSystem::GetLogFilePath();
+		std::filesystem::path logFilePath = FileSystem::GetDllLogFilePath();
 
 		Logger& logger = Logger::GetInstance();
-		logger.Init(logFilePath, LogLevel::Error, false);
+		logger.Init(logFilePath);
 		logger.WriteLogFileHeader("SC4ExtendedTerrain v" PLUGIN_VERSION_STR);
 	}
 
