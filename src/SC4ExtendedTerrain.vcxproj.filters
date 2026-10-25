@@ -108,9 +108,6 @@
     <ClCompile Include="TerrainGimexFactoryProxy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\Utf8TextOFStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\DebugUtil.cpp">
       <Filter>Source Files\sc4-dll-utilities</Filter>
     </ClCompile>
@@ -136,6 +133,9 @@
       <Filter>Source Files\sc4-dll-utilities</Filter>
     </ClCompile>
     <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\GZFileStreamBufAdapter.cpp">
+      <Filter>Source Files\sc4-dll-utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\sc4-dll-utilities\sc4-dll-utilities\src\Utf8TextOFStream.cpp">
       <Filter>Source Files\sc4-dll-utilities</Filter>
     </ClCompile>
   </ItemGroup>
