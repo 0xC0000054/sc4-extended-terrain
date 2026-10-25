@@ -449,7 +449,7 @@ void ExtendedTerrainWinManager::UpdateTerrainPrefixString(bool saveToRegionFolde
 	// static shutdown below, the game reads them again when the next city is loaded.
 	tuningExemplarManager.SetTerrainPrefix(currentTerrainPrefix);
 
-	cIGZString* const texturePrefixAsGZString = spTerrainTexturePrefix->AsIGZString();
+	cIGZString* const texturePrefixAsGZString = spTerrainTexturePrefix;
 
 	if (currentTerrainPrefix.Strlen() > 0
 		&& !texturePrefixAsGZString->IsEqual(currentTerrainPrefix, false))

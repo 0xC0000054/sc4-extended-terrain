@@ -43,18 +43,18 @@ public:
 
 	// cIGZGimexFactory
 
-	bool LoadFromFile(cIGZString const& path, cIGZBuffer* pBuffer, cGZBufferType bufferType) override;
-	bool LoadFromFile(cIGZString const& path, cIGZBuffer** outBuffer, cGZBufferType bufferType) override;
+	bool LoadFromFile(cIGZString const& path, cIGZBuffer* pBuffer, cGZBufferColorType::eColorType bufferType) override;
+	bool LoadFromFile(cIGZString const& path, cIGZBuffer** outBuffer, cGZBufferColorType::eColorType bufferType) override;
 
 	bool SaveToFile(cIGZString const& path, cIGZBuffer* pBuffer, SC4Rect<int32_t>& area, uint32_t formatID) override;
 	bool SaveToFile(cIGZString const& path, cIGZBuffer* pBuffer, uint32_t formatID) override;
-	bool LoadFromFile(cIGZFile* pFile, uint32_t gimexIndex, cIGZBuffer* pBuffer, cGZBufferType bufferType) override;
-	bool CreateFromFile(cIGZFile* pFile, uint32_t gimexIndex, cIGZBuffer** outBuffer, cGZBufferType bufferType) override;
+	bool LoadFromFile(cIGZFile* pFile, uint32_t gimexIndex, cIGZBuffer* pBuffer, cGZBufferColorType::eColorType bufferType) override;
+	bool CreateFromFile(cIGZFile* pFile, uint32_t gimexIndex, cIGZBuffer** outBuffer, cGZBufferColorType::eColorType bufferType) override;
 
-	bool LoadFromResource(cGZPersistResourceKey& key, uint32_t gimexIndex, cIGZBuffer* pBuffer, cGZBufferType bufferType) override;
-	bool CreateFromResource(cGZPersistResourceKey& key, uint32_t gimexIndex, cIGZBuffer** outBuffer, cGZBufferType bufferType) override;
-	bool LoadFromSerialRecord(cIGZPersistDBSerialRecord* pRecord, uint32_t gimexIndex, cIGZBuffer* pBuffer, cGZBufferType bufferType) override;
-	bool CreateFromSerialRecord(cIGZPersistDBSerialRecord* pRecord, uint32_t gimexIndex, cIGZBuffer** outBuffer, cGZBufferType bufferType) override;
+	bool LoadFromResource(cGZPersistResourceKey& key, uint32_t gimexIndex, cIGZBuffer* pBuffer, cGZBufferColorType::eColorType bufferType) override;
+	bool CreateFromResource(cGZPersistResourceKey& key, uint32_t gimexIndex, cIGZBuffer** outBuffer, cGZBufferColorType::eColorType bufferType) override;
+	bool LoadFromSerialRecord(cIGZPersistDBSerialRecord* pRecord, uint32_t gimexIndex, cIGZBuffer* pBuffer, cGZBufferColorType::eColorType bufferType) override;
+	bool CreateFromSerialRecord(cIGZPersistDBSerialRecord* pRecord, uint32_t gimexIndex, cIGZBuffer** outBuffer, cGZBufferColorType::eColorType bufferType) override;
 
 	bool SaveToFile(cIGZFile* pFile, uint32_t gimexIndex, cIGZBuffer* pBuffer, SC4Rect<int32_t>& area, uint32_t formatID) override;
 	bool SaveToFile(cIGZFile* pFile, uint32_t gimexIndex, cIGZBuffer* pBuffer, uint32_t formatID) override;

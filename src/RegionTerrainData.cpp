@@ -53,7 +53,7 @@ namespace
 	{
 		std::filesystem::path path = GetRegionRootFolder(sc4App);
 
-		path /= GZStringConvert::ToFileSystemPath(*sc4App.GetRegion()->GetDirectoryName()->AsIGZString());
+		path /= GZStringConvert::ToFileSystemPath(*sc4App.GetRegion()->GetDirectoryName());
 		path /= L"TerrainType.bin"sv;
 
 		return path;

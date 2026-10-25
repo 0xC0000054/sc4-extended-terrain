@@ -61,12 +61,12 @@ uint32_t TerrainGimexFactoryProxy::Release()
 	return cRZBaseUnknown::Release();
 }
 
-bool TerrainGimexFactoryProxy::LoadFromFile(cIGZString const& path, cIGZBuffer* pBuffer, cGZBufferType bufferType)
+bool TerrainGimexFactoryProxy::LoadFromFile(cIGZString const& path, cIGZBuffer* pBuffer, cGZBufferColorType::eColorType bufferType)
 {
 	return factory->LoadFromFile(path, pBuffer, bufferType);
 }
 
-bool TerrainGimexFactoryProxy::LoadFromFile(cIGZString const& path, cIGZBuffer** outBuffer, cGZBufferType bufferType)
+bool TerrainGimexFactoryProxy::LoadFromFile(cIGZString const& path, cIGZBuffer** outBuffer, cGZBufferColorType::eColorType bufferType)
 {
 	return factory->LoadFromFile(path, outBuffer, bufferType);
 }
@@ -85,7 +85,7 @@ bool TerrainGimexFactoryProxy::SaveToFile(cIGZString const& path, cIGZBuffer* pB
 	return factory->SaveToFile(path, pBuffer, formatID);
 }
 
-bool TerrainGimexFactoryProxy::LoadFromFile(cIGZFile* pFile, uint32_t gimexIndex, cIGZBuffer* pBuffer, cGZBufferType bufferType)
+bool TerrainGimexFactoryProxy::LoadFromFile(cIGZFile* pFile, uint32_t gimexIndex, cIGZBuffer* pBuffer, cGZBufferColorType::eColorType bufferType)
 {
 	return factory->LoadFromFile(pFile, gimexIndex, pBuffer, bufferType);
 }
@@ -94,7 +94,7 @@ bool TerrainGimexFactoryProxy::CreateFromFile(
 	cIGZFile* pFile,
 	uint32_t gimexIndex,
 	cIGZBuffer** outBuffer,
-	cGZBufferType bufferType)
+	cGZBufferColorType::eColorType bufferType)
 {
 	return factory->CreateFromFile(pFile, gimexIndex, outBuffer, bufferType);
 }
@@ -103,7 +103,7 @@ bool TerrainGimexFactoryProxy::LoadFromResource(
 	cGZPersistResourceKey& key,
 	uint32_t gimexIndex,
 	cIGZBuffer* pBuffer,
-	cGZBufferType bufferType)
+	cGZBufferColorType::eColorType bufferType)
 {
 	return factory->LoadFromResource(key, gimexIndex, pBuffer, bufferType);
 }
@@ -112,7 +112,7 @@ bool TerrainGimexFactoryProxy::CreateFromResource(
 	cGZPersistResourceKey& key,
 	uint32_t gimexIndex,
 	cIGZBuffer** outBuffer,
-	cGZBufferType bufferType)
+	cGZBufferColorType::eColorType bufferType)
 {
 	cGZPersistResourceKey redirectedKey(
 		key.type,
@@ -148,7 +148,7 @@ bool TerrainGimexFactoryProxy::LoadFromSerialRecord(
 	cIGZPersistDBSerialRecord* pRecord,
 	uint32_t gimexIndex,
 	cIGZBuffer* pBuffer,
-	cGZBufferType bufferType)
+	cGZBufferColorType::eColorType bufferType)
 {
 	return factory->LoadFromSerialRecord(pRecord, gimexIndex, pBuffer, bufferType);
 }
@@ -157,7 +157,7 @@ bool TerrainGimexFactoryProxy::CreateFromSerialRecord(
 	cIGZPersistDBSerialRecord* pRecord,
 	uint32_t gimexIndex,
 	cIGZBuffer** outBuffer,
-	cGZBufferType bufferType)
+	cGZBufferColorType::eColorType bufferType)
 {
 	return factory->CreateFromSerialRecord(pRecord, gimexIndex, outBuffer, bufferType);
 }

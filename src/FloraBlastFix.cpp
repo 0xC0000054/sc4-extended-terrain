@@ -20,6 +20,7 @@
 #include "FloraBlastFix.h"
 #include "cISC4FloraSimulator.h"
 #include "Logger.h"
+#include "cSC4StaticFloraData.h"
 #include <array>
 #include <cstdint>
 #include <cstring>
@@ -35,10 +36,6 @@ namespace
 	constexpr uintptr_t kGetPropagationScoreAddress = 0x006B0900;
 	// The 'call DropSeed' instruction in the 'Flora blast' cheat handler.
 	constexpr uintptr_t kFloraBlastDropSeedCallAddress = 0x006B32DC;
-
-	// Static flora record offsets: elements [8] and [9] of property 0x083DC35B.
-	constexpr size_t kMinPropagationScoreOffset = 0x30;
-	constexpr size_t kSeedSuccessFactorOffset = 0x34;
 
 	typedef bool(__thiscall* DropSeedFn)(void* pThis, uint32_t type, float x, float z);
 	typedef float(__thiscall* GetPropagationScoreFn)(void* pThis, uint32_t type, float x, float z);
@@ -67,24 +64,17 @@ namespace
 		{ kFloraBlastDropSeedCallAddress, { 0xE8, 0x9F, 0xD6, 0xFF, 0xFF }, 5 },
 	}};
 
-	float ReadFloat(const uint8_t* address)
-	{
-		float value = 0.0f;
-		std::memcpy(&value, address, sizeof(value));
-		return value;
-	}
-
 	// Replaces the cheat's call to DropSeed. __fastcall with an unused edx parameter has the same
 	// register and stack layout as a thiscall method with three stack arguments.
 	bool __fastcall FloraBlastDropSeed(cISC4FloraSimulator* pThis, void* /*edx*/, uint32_t type, float x, float z)
 	{
 		if (type != 0)
 		{
-			const uint8_t* const record = reinterpret_cast<const uint8_t*>(pThis->GetStaticFloraData(type));
+			const cSC4StaticFloraData* const record = pThis->GetStaticFloraData(type);
 
 			if (record)
 			{
-				const float seedSuccessFactor = ReadFloat(record + kSeedSuccessFactorOffset);
+				const float seedSuccessFactor = record->parameters[cSC4StaticFloraData::tParameters::SeedSuccessFactor];
 
 				if (!(seedSuccessFactor > 0.0f))
 				{
@@ -95,7 +85,7 @@ namespace
 						return false;
 					}
 
-					const float minPropagationScore = ReadFloat(record + kMinPropagationScoreOffset);
+					const float minPropagationScore = record->parameters[cSC4StaticFloraData::tParameters::MinPropagationScore];
 					const float score = GetPropagationScoreForFlora(pThis, type, x, z);
 
 					if (score < minPropagationScore)
