@@ -25,6 +25,9 @@
     <ClCompile Include="..\vendor\gzcom-dll\gzcom-dll\src\StringResourceManager.cpp" />
     <ClCompile Include="DebugUtil.cpp" />
     <ClCompile Include="ExtendedTerrainWin.cpp" />
+    <ClCompile Include="FloraBlastFix.cpp" />
+    <ClCompile Include="FloraBiomeManager.cpp" />
+    <ClCompile Include="TuningExemplarManager.cpp" />
     <ClCompile Include="ExtendedTerrainWinManager.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="GZFileStreamBufAdapter.cpp" />
@@ -67,6 +70,9 @@
     <ClInclude Include="..\vendor\gzcom-dll\gzcom-dll\include\StringResourceManager.h" />
     <ClInclude Include="DebugUtil.h" />
     <ClInclude Include="ExtendedTerrainWin.h" />
+    <ClInclude Include="FloraBlastFix.h" />
+    <ClInclude Include="FloraBiomeManager.h" />
+    <ClInclude Include="TuningExemplarManager.h" />
     <ClInclude Include="ExtendedTerrainWinManager.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="GZFileStreamBufAdapter.h" />

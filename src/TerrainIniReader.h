@@ -22,11 +22,15 @@
 #pragma once
 #include "TerrainNameCollection.h"
 #include "ITerrainTextureRedirectManager.h"
+#include "FloraBiomeManager.h"
+#include "TuningExemplarManager.h"
 
 namespace TerrainIniReader
 {
 	void Parse(
 		TerrainNameCollection& terrainNames,
-		ITerrainTextureRedirectManager& textureRedirectManager);
+		ITerrainTextureRedirectManager& textureRedirectManager,
+		FloraBiomeManager& floraBiomeManager,
+		TuningExemplarManager& tuningExemplarManager);
 };
 
