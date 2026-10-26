@@ -92,7 +92,6 @@ TuningExemplarManager::TuningExemplarManager()
 		{ 0x7589BF, kTerrainPropertiesGroup, kTerrainPropertiesInstance, ExemplarKind::TerrainProperties, "cSTETerrainView3D::ReadTuningParameters", false, 0 },
 		{ 0x755C7F, kTerrainPropertiesGroup, kTerrainPropertiesInstance, ExemplarKind::TerrainProperties, "cSTETerrainView3D::ReadPlumbingTuningData", false, 0 },
 		{ 0x4D8BEF, kTerrainPropertiesGroup, kTerrainPropertiesInstance, ExemplarKind::TerrainProperties, "cSC4ViewInputControlTerrainScrubber::ReadTuningParameters", false, 0 },
-		{ 0x5E3518, kTerrainPropertiesGroup, kTerrainPropertiesInstance, ExemplarKind::TerrainProperties, "0x5E3400", false, 0 },
 		{ 0x6B0122, kFloraTuningGroup, kFloraTuningInstance, ExemplarKind::FloraTuning, "cSC4FloraSimulator::ReadTuning", false, 0 },
 	};
 }

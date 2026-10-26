@@ -223,7 +223,6 @@ unchanged and an error is written to the log.
 | 0x007589BF | cSTETerrainView3D::ReadTuningParameters | Terrain Properties |
 | 0x00755C7F | cSTETerrainView3D::ReadPlumbingTuningData | Terrain Properties |
 | 0x004D8BEF | cSC4ViewInputControlTerrainScrubber::ReadTuningParameters | Terrain Properties |
-| 0x005E3518 | Function at 0x005E3400 | Terrain Properties |
 | 0x006B0122 | cSC4FloraSimulator::ReadTuning | Flora Tuning |
 
 ## Flora Blast Cheat
